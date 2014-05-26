@@ -1,0 +1,19 @@
+form{
+	input{
+		font:inherit;
+		-webkit-appearance:none;
+		outline:none;
+		border-radius:0;
+		padding:0.5em;
+		font-size:0.75em;
+		margin:0;
+		border:1px solid $color_border;
+		background:$color_text;
+		color:$color_background;
+	}
+}
+input[type="submit"], .but{
+	background:$color_alter;
+	color:$color_text;
+	padding:0.5em;
+}
