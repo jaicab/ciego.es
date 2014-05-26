@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js" ng-app="ciego">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+		<title>Ciego - Búscate un ciego en tu ciudad</title>
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+
+		<link type="text/css" rel="stylesheet" href="style/main.css"/>
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-sanitize.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-animate.js"></script>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCKld14xVtWC0JBFk3rYquXzQhShqqvmtw&sensor=false&libraries=places"></script>
+	</head>
+	<body>
+	<body ng-controller="AppController">
+		<header>
+			<div class="tope_alto border_left">
+				<div class="logo">
+					<img src="img/logo.svg" alt="Ciego.es - Beber barato es posible">
+				</div>
+
+				<div class="desktop" id="resultados">
+					<div class="garito" ng-repeat="garito in marker | orderBy:'id':true | limitTo: 100">
+						<div class="icon" ng-bind-html="tipo_svg[{{garito.tipo_id}}] | unsafe"></div>
+						<h3 class="nombre" data-id="{{garito.id}}">{{garito.nombre}}</h3>
+						<p class="desc">{{garito.direccion}}</p>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<section>
+			<form method="POST" id="formBuscar" ng-submit="codeAddress(data.buscar)">
+				<input ng-model="data.buscar" type="text" name="buscar" placeholder="Buscar ciego en..." id="campoBuscar"/><a id="buscar" class="typcn typcn-arrow-right-thick"></a>
+			</form>
+			<div id="mapa"></div>
+		</section>
+
+		<footer>
+			<span class="block"><b>&copy;2014 <a href="http://jaicab.com" target="_blank" title="Jaime Caballero">Jaime Caballero</a></b></span>
+			<span class="block"></span>
+		</footer>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+		<script src="js/core-ck.js"></script>
+	</body>
+</html>

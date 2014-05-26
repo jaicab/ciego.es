@@ -1,0 +1,40 @@
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+
+ 
+html{
+	@extend .tope_alto;
+	margin:0;
+	padding:0;
+}
+body{
+	width:100%;
+	@extend .tope_alto;
+	margin:0;
+	padding:0;
+	color:$color_text;
+	background:$color_background;
+	font:1em/1.5 "Helvetica Neue", Arial, sans-serif;
+}
+a{
+	text-decoration:none;
+	color:$color_alter;
+}
+a:hover{
+	color:$color_alter;
+}
+h1,h2,h3,h4,h5,h6{
+	font-family:'Fjalla One',serif;
+	color:$color_alter;
+}
+h1{
+	font-size:3em;
+}
+img{
+	max-width:100%;
+}
+#mapa img{
+	max-width:none;
+}

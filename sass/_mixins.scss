@@ -1,0 +1,30 @@
+// MEDIA QUERY MIXIN
+@mixin bp($point) {
+  @if $point == retina {
+    @media #{$bp-retina}  { @content; }
+  }
+  @else if $point == print {
+    @media #{$bp-print}  { @content; }
+  }
+  @else if $point == desktop-big {
+    @media #{$bp-desktop-big} { @content; }
+  }
+  @else if $point == desktop-small {
+    @media #{$bp-desktop-small} { @content; }
+  }
+  @else if $point == tablet-big {
+    @media #{$bp-tablet-big}  { @content; }
+  }
+  @else if $point == tablet-small {
+    @media #{$bp-tablet-small}  { @content; }
+  }
+  @else if $point == mobile-big {
+    @media #{$bp-mobile-big}  { @content; }
+  }
+  @else if $point == mobile-small {
+    @media #{$bp-mobile-small}  { @content; }
+  }
+  @else {
+    @warn "Value not supported";
+  }
+}

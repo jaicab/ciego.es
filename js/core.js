@@ -1,0 +1,268 @@
+// @codekit-prepend 'partial/modernizr.js'
+
+
+/*
+============================
+***** CIEGO.ES JS Core *****
+============================
+
+(C) 2013 - Proudly handcrafted by Jaime Caballero.
+*/
+
+// @codekit-prepend 'partial/default.js'
+
+/*
+
+=======================
+*** ANGULAR.JS Core ***
+=======================
+
+*/
+
+ciego.filter('unsafe', function($sce) {
+    return function(val) {
+        return $sce.trustAsHtml(val);
+    };
+});
+
+ciego.controller('AppController',function($scope, $http){
+
+	$scope.data = {buscar:""};
+	$scope.marker = [];
+	$scope.infowindow = [];
+
+	$scope.tipo_svg = new Array(4);
+	$scope.tipo_svg[0] = '<svg class="beer" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="-1 -30 70 1" enable-background="new 0 0 512 512" xml:space="preserve"><g><path d="M23.04 -32.183v-13.824h-9.216v9.216q0 1.908 1.35 3.258t3.258 1.35h4.608zm36.864 16.128v6.912h-41.472v-6.912l4.608 -6.912h-4.608q-5.724 0 -9.774 -4.05t-4.05 -9.774v-11.52l-2.304 -2.304 1.152 -4.608h17.28l1.152 -4.608h34.56l1.152 6.912 -2.304 1.152v28.8z"></path></g></svg>';
+	$scope.tipo_svg[1] = '<svg class="wine" enable-background="new 0 0 500 500" height="500px" id="Layer_1" version="1.1" viewBox="0 0 500 500" width="500px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><path clip-rule="evenodd" d="M91.505,181.858c0,80.14,59.231,146.371,136.282,157.364v65.23  c0,9.992-8.181,18.172-18.17,18.172h-49.972c-12.536,0-22.713,10.175-22.713,22.716c0,12.536,10.177,22.711,22.713,22.711h181.708  c12.541,0,22.717-10.175,22.717-22.711c0-12.541-10.176-22.716-22.717-22.716h-49.969c-9.988,0-18.169-8.18-18.169-18.172v-65.23  c77.049-10.993,136.28-77.224,136.28-157.364V68.29c0-20.077-16.262-36.34-36.34-36.34h-245.31c-20.079,0-36.34,16.264-36.34,36.34  V181.858z M156.92,77.375h187.157c11.085,0,19.992,8.909,19.992,19.991v50.875c0,11.081-8.907,19.989-19.992,19.989H156.92  c-11.08,0-19.989-8.909-19.989-19.989V97.367C136.932,86.284,145.84,77.375,156.92,77.375z"/></svg>';
+	$scope.tipo_svg[2] = '<svg class="drink" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="-1 -30 70 1" enable-background="new 0 0 512 512" xml:space="preserve"><g><path d="M61.164,-57.743q0,1.26,-1.548,2.808l-22.752,22.752v27.648h11.52q0.936,0,1.62,0.684t0.684,1.62,-0.684,1.62,-1.62,0.684h-32.256q-0.936,0,-1.62,-0.684t-0.684,-1.62,0.684,-1.62,1.62,-0.684h11.52v-27.648l-22.752,-22.752q-1.548,-1.548,-1.548,-2.808,0,-0.828,0.648,-1.314t1.368,-0.63,1.548,-0.144h50.688q0.828,0,1.548,0.144t1.368,0.63,0.648,1.314z"></path></g></svg>';
+	$scope.tipo_svg[3] = '<svg class="cider" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><g><path d="M298.725,211.268c-8.027-21.325-15.75-95.299-15.75-102.258c0-18.627,14.174-8.474,0.867-51.545 c-3.072-9.951-52.611-9.954-55.684,0c-12.963,41.985,0.867,33.957,0.867,51.545c0,6.958-7.723,80.933-15.75,102.258 c-8.031,21.326-32.373,25.192-32.373,65.77c0,24.227,0,137.757,0,160.628c0,22.872,17.35,24.335,75.098,24.335 s75.098-1.463,75.098-24.335c0-22.871,0-136.401,0-160.628C331.098,236.46,306.756,232.594,298.725,211.268z M241.055,291.778 v137.75c-7.625,1.125-22.875,0.5-26-5v-135c0-47.376,16.418-32.407,33.5-90C244.289,229.599,241.055,245.028,241.055,291.778z"></path></g></svg>';
+
+
+	$scope.inMarker = function(garito){
+		for(i=0; i<$scope.marker.length; i++){
+			if($scope.marker[i].id==garito.id) return true;
+		}
+		return false;
+	}
+
+	$scope.clearMarkers = function(todo) {	
+
+		//recorremos array
+		tam = $scope.marker.length;
+		for(var i=0; i<tam; i++){
+			if(!bounds.contains($scope.marker[i].getPosition())){
+				console.log("Borramos "+$scope.marker[i].id);
+				$scope.marker[i].setMap(null);
+				$scope.marker[i] = null;
+				$scope.marker.splice(i,1);
+				tam = $scope.marker.length;
+				i = 0;
+			}
+		}
+		if(todo) $scope.marker = [];
+		
+	}
+	$scope.clearInfowindows = function() {
+		for (var i = 0; i < $scope.infowindow.length; i++ ) {
+			$scope.infowindow[i].close();
+		}
+	}
+
+	$scope.info = function(marcador, ventanita){
+		$scope.clearInfowindows();
+		ventanita.setContent('<div class="info">Pene pene pene'+marcador.id+'</div>');
+		ventanita.open(map,marcador);
+	}
+
+	$scope.estoy_aqui = function(donde){
+		aqui = donde;
+		actual.setPosition(aqui);
+		map.setCenter(aqui);
+		map.setZoom(15);
+	}
+
+	/*FUNCIONES DEL MAPA*/
+	//'bounds': google.maps.LatLngBounds(google.maps.LatLng(35.17300000000001, -12.524000000000001),google.maps.LatLng(45.244, 5.097999999999956))
+	$scope.codeAddress = function(direccion){
+		geocoder.geocode( { 'address': direccion, 'region':'es'}, function(results, status) {
+			if(status == google.maps.GeocoderStatus.OK) {
+
+				if (results[0].geometry.viewport) {
+	    			aqui = results[0].geometry.location;
+					actual.setPosition(aqui);
+	      			map.fitBounds(results[0].geometry.viewport);
+		    	} else {  		
+			    	$scope.estoy_aqui(results[0].geometry.location);
+		    	}
+
+			}else{
+				alert("La geolocalización ha fallado: " + status + "\n No hemos podido encontrar '"+direccion+ "'");
+			}
+		});
+	}
+
+	$scope.localizar = function() {
+
+		//GEOLOCALIZACIÓN
+		if(Modernizr.geolocation){
+			// Try W3C Geolocation (Preferred)
+			if(navigator.geolocation) {
+			    browserSupportFlag = true;
+			    navigator.geolocation.getCurrentPosition(function(position) {
+			    	//conseguido
+			    	$scope.estoy_aqui(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
+			    }, function() {
+			    	//no conseguido
+			    	if (errorFlag == true) {
+				      alert("La geolocalización ha fallado.");
+				    } else {
+				      alert("Tu navegador no soporta geolocalización.");
+				    }
+			    });
+			}
+		}
+	}
+	$scope.initialize = function(){
+		var panoramaOptions = {
+	        addressControlOptions : { position : google.maps.ControlPosition.BOTTOM_CENTER },
+	        zoomControlOptions : { position : google.maps.ControlPosition.LEFT_CENTER},
+	        panControlOptions : { position : google.maps.ControlPosition.LEFT_BOTTOM},
+	        enableCloseButton : true,
+	        visible: false //set to false so streetview is not triggered on the initial map load
+	    };
+	    var panorama = new  google.maps.StreetViewPanorama(document.getElementById("mapa"), panoramaOptions);
+
+		var mapOptions = {
+			center: aqui,
+			zoom: 14,
+			draggable: true,
+			scrollwheel: true,
+			panControl: false,
+			zoomControl: true,
+			zoomControlOptions: {
+		        position: google.maps.ControlPosition.LEFT_CENTER
+		    },
+		    streetView : panorama,
+			streetViewControlOptions: {
+		    	position: google.maps.ControlPosition.LEFT_CENTER
+		    },
+		    addressControlOptions: {
+		      position: google.maps.ControlPosition.BOTTOM_CENTER
+		    },
+			mapTypeControlOptions: {
+				mapTypeIds: ['map_style',google.maps.MapTypeId.ROADMAP,google.maps.MapTypeId.HYBRID],
+				position: google.maps.ControlPosition.RIGHT_BOTTOM
+			},
+			styles:[
+			{
+				featureType:"poi.business",
+				elementType:"all",
+				stylers:[{visibility:"off"}]
+			}
+			]
+		};
+
+
+		map = new google.maps.Map(document.getElementById('mapa'),mapOptions);
+		//lo centramos en madrid
+		//bounds.extend(google.maps.LatLng(40.3120639, -3.834161799999947));
+		//bounds.extend(google.maps.LatLng(40.5635903, -3.524911599999996));
+		//map.fitBounds(bounds);
+
+		actual = new google.maps.Marker({
+			animation: google.maps.Animation.DROP,
+			map: map,
+			position: aqui
+		});
+
+		$scope.localizar();
+
+		map.mapTypes.set('map_style', styledMap);
+			map.setMapTypeId('map_style');
+		//mapa responsive
+		window.onresize = function(event) {
+			var center = map.getCenter();
+			google.maps.event.trigger(map, "resize");
+			map.setCenter(center); 
+		}
+
+		var input = (document.getElementById('campoBuscar'));
+		var autocomplete = new google.maps.places.Autocomplete(input,{types: ['(regions)'],componentRestrictions: {country: "es"}});
+	  	autocomplete.bindTo('bounds', map);
+
+		//mapa autocompletar
+	  	google.maps.event.addListener(autocomplete, 'place_changed', function() {
+	    
+	    	var place = autocomplete.getPlace();
+	    	if (!place.geometry) {
+	     		return;
+	    	}
+	    	$scope.clearMarkers(true);
+	    	// If the place has a geometry, then present it on a map.
+	    	if (place.geometry.viewport) {
+	    		aqui = place.geometry.location;
+				actual.setPosition(aqui);
+	      		map.fitBounds(place.geometry.viewport);
+	    	} else {  		
+		    	$scope.estoy_aqui(place.geometry.location);
+	    	}
+	    
+	  	});
+
+	  	// Al cambiar el zoom
+		google.maps.event.addListener(map,'idle',function(){
+			bounds = map.getBounds();
+		    sw = bounds.getSouthWest();
+		    ne = bounds.getNorthEast();
+		    // Cerramos street 
+		    map.getStreetView().setVisible(false);
+		    // AJAX
+			$http({
+			    url: "../lib/ajax/viewport.php?swLat="+sw.lat()+"&swLng="+sw.lng()+"&neLat="+ne.lat()+"&neLng="+ne.lng(),
+			    method: "GET"
+			}).success(function(data, status, headers, config) {
+				if(data=="null"){
+					console.log("Error: Aquí no hay marcadores.");
+					$scope.clearMarkers(true);
+				}else{
+					$scope.clearMarkers();
+
+					for(var i in data){						
+
+						garito = new google.maps.LatLng(data[i].lat,data[i].lng);
+						if(!$scope.inMarker(data[i])){
+							cont = $scope.marker.length;
+							console.log("Añadiendo "+data[i].id);
+							$scope.marker[cont] = new google.maps.Marker({
+								map: map,
+								icon: tipo[data[i].tipo_id],
+								position: garito
+							});
+
+							//datos del garito
+							$scope.marker[cont].set("id",data[i].id);
+							$scope.marker[cont].set("nombre",data[i].nombre);
+							$scope.marker[cont].set("direccion",data[i].direccion);
+							$scope.marker[cont].set("tipo_id",data[i].tipo_id);
+
+						  	$scope.infowindow[cont] = new google.maps.InfoWindow({
+						    	content: '<div class="info"><p>Lorem ipsum #'+data[i].id+'</p></div>'
+						  	});
+						  	google.maps.event.addListener($scope.marker[cont],'click', (function(marker,infowindow){ 
+							    return function() {
+							    	$scope.info(marker,infowindow);
+							    };
+							})($scope.marker[cont],$scope.infowindow[cont]));  
+						}
+					}
+				}
+			}).error(function(data, status, headers, config) {
+			    $scope.status = status;
+			});
+		});
+	};
+
+	angular.element(document).ready(function() {
+		$scope.initialize();
+	});
+});

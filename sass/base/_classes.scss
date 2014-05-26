@@ -1,0 +1,26 @@
+.desktop{display:none;}
+.tope_alto{height:100%;}
+.clear{clear:both;}
+.center{text-align:center;}
+.col{
+	display:inline-block;
+	vertical-align:top;
+}
+.margen{
+	padding:0 1em;
+}
+.todo_margen{
+	margin:0.5em;
+}
+.block{
+	display: block;
+}
+
+@include bp(desktop-small) {
+
+	.desktop{display:block;}
+	.resultados{
+		padding-bottom:3em;
+	}
+
+}
