@@ -13,12 +13,12 @@ WebFont.load({
     }
   });
 
-var map;
-var geocoder = new google.maps.Geocoder();
-var bounds = new google.maps.LatLngBounds();
-var aqui = new google.maps.LatLng(40.416775, -3.703790);
-var actual;
-var ciego = angular.module('ciego', ['ngSanitize','ngAnimate']);
+// var map;
+// var geocoder = new google.maps.Geocoder();
+// var bounds = new google.maps.LatLngBounds();
+// var aqui = new google.maps.LatLng(40.416775, -3.703790);
+// var actual;
+var ciego = angular.module('ciego', ['ngRoute','ngSanitize','ngAnimate']);
 
 
 
@@ -89,6 +89,46 @@ var styledMap = new google.maps.StyledMapType(styles,{name: "Ciego"});
 
 
 /* **********************************************
+     Begin router.js
+********************************************** */
+
+// ciego.config(['$routeProvider', function ($routeProvider) {
+
+//   $routeProvider.when('/garito/:id', {
+//     templateUrl: 'view/main.html'
+//   }).otherwise({
+//		redirectTo: "/";
+//   })
+
+// }]);
+
+/* **********************************************
+     Begin garito.js
+********************************************** */
+
+
+ciego.factory("Data", function(){
+	return {
+		map: '',
+		geocoder: new google.maps.Geocoder(),
+		bounds: new google.maps.LatLngBounds(),
+		aqui: new google.maps.LatLng(40.416775, -3.703790),
+		actual: '',
+		marker: [],
+		infowindow: []
+	}
+});
+
+
+
+
+
+
+
+
+
+
+/* **********************************************
      Begin core.js
 ********************************************** */
 
@@ -104,13 +144,14 @@ var styledMap = new google.maps.StyledMapType(styles,{name: "Ciego"});
 */
 
 // @codekit-prepend 'partial/default.js'
+// @codekit-prepend 'partial/router.js'
+
+// @codekit-prepend 'factory/garito.js'
 
 /*
-
 =======================
 *** ANGULAR.JS Core ***
 =======================
-
 */
 
 ciego.filter('unsafe', function($sce) {
@@ -119,11 +160,16 @@ ciego.filter('unsafe', function($sce) {
     };
 });
 
-ciego.controller('AppController',function($scope, $http){
+
+ciego.controller('AppController', function($scope, $http, Data){
 
 	$scope.data = {buscar:""};
-	$scope.marker = [];
-	$scope.infowindow = [];
+	$scope.infowindow = Data.infowindow;
+
+	$scope.map = Data.map;
+	$scope.aqui = Data.aqui;
+	$scope.actual = Data.actual;
+	$scope.marker = Data.marker;
 
 	$scope.tipo_svg = new Array(4);
 	$scope.tipo_svg[0] = '<svg class="beer" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="-1 -30 70 1" enable-background="new 0 0 512 512" xml:space="preserve"><g><path d="M23.04 -32.183v-13.824h-9.216v9.216q0 1.908 1.35 3.258t3.258 1.35h4.608zm36.864 16.128v6.912h-41.472v-6.912l4.608 -6.912h-4.608q-5.724 0 -9.774 -4.05t-4.05 -9.774v-11.52l-2.304 -2.304 1.152 -4.608h17.28l1.152 -4.608h34.56l1.152 6.912 -2.304 1.152v28.8z"></path></g></svg>';
@@ -131,7 +177,7 @@ ciego.controller('AppController',function($scope, $http){
 	$scope.tipo_svg[2] = '<svg class="drink" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="-1 -30 70 1" enable-background="new 0 0 512 512" xml:space="preserve"><g><path d="M61.164,-57.743q0,1.26,-1.548,2.808l-22.752,22.752v27.648h11.52q0.936,0,1.62,0.684t0.684,1.62,-0.684,1.62,-1.62,0.684h-32.256q-0.936,0,-1.62,-0.684t-0.684,-1.62,0.684,-1.62,1.62,-0.684h11.52v-27.648l-22.752,-22.752q-1.548,-1.548,-1.548,-2.808,0,-0.828,0.648,-1.314t1.368,-0.63,1.548,-0.144h50.688q0.828,0,1.548,0.144t1.368,0.63,0.648,1.314z"></path></g></svg>';
 	$scope.tipo_svg[3] = '<svg class="cider" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><g><path d="M298.725,211.268c-8.027-21.325-15.75-95.299-15.75-102.258c0-18.627,14.174-8.474,0.867-51.545 c-3.072-9.951-52.611-9.954-55.684,0c-12.963,41.985,0.867,33.957,0.867,51.545c0,6.958-7.723,80.933-15.75,102.258 c-8.031,21.326-32.373,25.192-32.373,65.77c0,24.227,0,137.757,0,160.628c0,22.872,17.35,24.335,75.098,24.335 s75.098-1.463,75.098-24.335c0-22.871,0-136.401,0-160.628C331.098,236.46,306.756,232.594,298.725,211.268z M241.055,291.778 v137.75c-7.625,1.125-22.875,0.5-26-5v-135c0-47.376,16.418-32.407,33.5-90C244.289,229.599,241.055,245.028,241.055,291.778z"></path></g></svg>';
 
-
+	// Check if in marker list
 	$scope.inMarker = function(garito){
 		for(i=0; i<$scope.marker.length; i++){
 			if($scope.marker[i].id==garito.id) return true;
@@ -139,12 +185,13 @@ ciego.controller('AppController',function($scope, $http){
 		return false;
 	}
 
+	// Clears all the markers
 	$scope.clearMarkers = function(todo) {	
 
 		//recorremos array
 		tam = $scope.marker.length;
 		for(var i=0; i<tam; i++){
-			if(!bounds.contains($scope.marker[i].getPosition())){
+			if(!$scope.bounds.contains($scope.marker[i].getPosition())){
 				console.log("Borramos "+$scope.marker[i].id);
 				$scope.marker[i].setMap(null);
 				$scope.marker[i] = null;
@@ -156,24 +203,30 @@ ciego.controller('AppController',function($scope, $http){
 		if(todo) $scope.marker = [];
 		
 	}
+
+	// Clears all the info windows
 	$scope.clearInfowindows = function() {
 		for (var i = 0; i < $scope.infowindow.length; i++ ) {
 			$scope.infowindow[i].close();
 		}
 	}
 
+	// Focus on one single window
 	$scope.info = function(marcador, ventanita){
 		$scope.clearInfowindows();
-		ventanita.setContent('<div class="info">Pene pene pene'+marcador.id+'</div>');
-		ventanita.open(map,marcador);
+		//ventanita.setContent('<div class="info">Pene pene pene'+marcador.id+'</div>');
+		ventanita.open($scope.map,marcador);
 	}
 
+	// Center the map in place
 	$scope.estoy_aqui = function(donde){
-		aqui = donde;
-		actual.setPosition(aqui);
-		map.setCenter(aqui);
-		map.setZoom(15);
+		$scope.aqui = donde;
+		$scope.actual.setPosition($scope.aqui);
+		$scope.map.setCenter($scope.aqui);
+		$scope.map.setZoom(15);
 	}
+
+
 
 	/*FUNCIONES DEL MAPA*/
 	//'bounds': google.maps.LatLngBounds(google.maps.LatLng(35.17300000000001, -12.524000000000001),google.maps.LatLng(45.244, 5.097999999999956))
@@ -182,9 +235,9 @@ ciego.controller('AppController',function($scope, $http){
 			if(status == google.maps.GeocoderStatus.OK) {
 
 				if (results[0].geometry.viewport) {
-	    			aqui = results[0].geometry.location;
-					actual.setPosition(aqui);
-	      			map.fitBounds(results[0].geometry.viewport);
+	    			$scope.aqui = results[0].geometry.location;
+					$scope.actual.setPosition(aqui);
+	      			$scope.map.fitBounds(results[0].geometry.viewport);
 		    	} else {  		
 			    	$scope.estoy_aqui(results[0].geometry.location);
 		    	}
@@ -216,6 +269,74 @@ ciego.controller('AppController',function($scope, $http){
 			}
 		}
 	}
+
+	$scope.refocus = function() {
+
+	    // Close Street View
+	    $scope.map.getStreetView().setVisible(false);
+	    $scope.bounds = $scope.map.getBounds();
+		var sw = $scope.bounds.getSouthWest();
+		var ne = $scope.bounds.getNorthEast();
+
+	    // AJAX, boy
+
+		$http({
+		    url: "/lib/ajax/viewport.php?swLat="+sw.lat()+"&swLng="+sw.lng()+"&neLat="+ne.lat()+"&neLng="+ne.lng(),
+		    method: "GET"
+		}).success(function(data, status, headers, config) {
+			if(data=="null"){
+
+				console.log("Error: Aquí no hay marcadores.");
+				$scope.clearMarkers(true);
+
+			}else{
+
+				$scope.clearMarkers();
+				var lista = data;
+
+				for(var i in lista){						
+
+					garito = new google.maps.LatLng(lista[i].lat,lista[i].lng);
+					if(!$scope.inMarker(lista[i])) {
+
+						cont = $scope.marker.length;
+						console.log("Añadiendo "+lista[i].id);
+						$scope.marker[cont] = new google.maps.Marker({
+
+							map: $scope.map,
+							icon: tipo[lista[i].tipo_id],
+							position: garito
+
+						});
+
+						//datos del garito
+						$scope.marker[cont] = {
+
+							"id": lista[i].id,
+							"nombre": lista[i].nombre,
+							"direccion": lista[i].direccion,
+							"tipo_id": lista[i].tipo_id
+
+						};
+
+					  	$scope.infowindow[cont] = new google.maps.InfoWindow({
+					    	content: '<div class="info"><p>Lorem ipsum #'+lista[i].id+'</p></div>'
+					  	});
+					  	google.maps.event.addListener($scope.marker[cont],'click', (function(marker,infowindow){ 
+						    return function() {
+						    	$scope.info(marker, infowindow);
+						    };
+						})($scope.marker[cont],$scope.infowindow[cont]));  
+					}
+				}
+
+			}
+		}).error(function(data, status, headers, config) {
+		    $scope.status = status;
+		});
+
+	}
+
 	$scope.initialize = function(){
 		var panoramaOptions = {
 	        addressControlOptions : { position : google.maps.ControlPosition.BOTTOM_CENTER },
@@ -227,7 +348,7 @@ ciego.controller('AppController',function($scope, $http){
 	    var panorama = new  google.maps.StreetViewPanorama(document.getElementById("mapa"), panoramaOptions);
 
 		var mapOptions = {
-			center: aqui,
+			center: $scope.aqui,
 			zoom: 14,
 			draggable: true,
 			scrollwheel: true,
@@ -256,35 +377,35 @@ ciego.controller('AppController',function($scope, $http){
 			]
 		};
 
-
-		map = new google.maps.Map(document.getElementById('mapa'),mapOptions);
-		//lo centramos en madrid
-		//bounds.extend(google.maps.LatLng(40.3120639, -3.834161799999947));
-		//bounds.extend(google.maps.LatLng(40.5635903, -3.524911599999996));
-		//map.fitBounds(bounds);
-
-		actual = new google.maps.Marker({
+		// Instantiate the map
+		$scope.map = new google.maps.Map(document.getElementById('mapa'),mapOptions);
+	
+		// Set the marker
+		$scope.actual = new google.maps.Marker({
 			animation: google.maps.Animation.DROP,
-			map: map,
-			position: aqui
+			map: $scope.map,
+			position: $scope.aqui
 		});
 
+		// Center on geolocation HTML5
 		$scope.localizar();
 
-		map.mapTypes.set('map_style', styledMap);
-			map.setMapTypeId('map_style');
+		// Apply the styled map
+		$scope.map.mapTypes.set('map_style', styledMap);
+			$scope.map.setMapTypeId('map_style');
+
 		//mapa responsive
 		window.onresize = function(event) {
 			var center = map.getCenter();
 			google.maps.event.trigger(map, "resize");
-			map.setCenter(center); 
+			$scope.map.setCenter(center); 
 		}
 
+		// Autocomplete. Powered by Google Places API
 		var input = (document.getElementById('campoBuscar'));
 		var autocomplete = new google.maps.places.Autocomplete(input,{types: ['(regions)'],componentRestrictions: {country: "es"}});
-	  	autocomplete.bindTo('bounds', map);
+	  	autocomplete.bindTo('bounds', $scope.map);
 
-		//mapa autocompletar
 	  	google.maps.event.addListener(autocomplete, 'place_changed', function() {
 	    
 	    	var place = autocomplete.getPlace();
@@ -294,65 +415,18 @@ ciego.controller('AppController',function($scope, $http){
 	    	$scope.clearMarkers(true);
 	    	// If the place has a geometry, then present it on a map.
 	    	if (place.geometry.viewport) {
-	    		aqui = place.geometry.location;
-				actual.setPosition(aqui);
-	      		map.fitBounds(place.geometry.viewport);
+	    		$scope.aqui = place.geometry.location;
+				$scope.actual.setPosition(aqui);
+	      		$scope.map.fitBounds(place.geometry.viewport);
 	    	} else {  		
 		    	$scope.estoy_aqui(place.geometry.location);
 	    	}
 	    
 	  	});
 
-	  	// Al cambiar el zoom
-		google.maps.event.addListener(map,'idle',function(){
-			bounds = map.getBounds();
-		    sw = bounds.getSouthWest();
-		    ne = bounds.getNorthEast();
-		    // Cerramos street 
-		    map.getStreetView().setVisible(false);
-		    // AJAX
-			$http({
-			    url: "../lib/ajax/viewport.php?swLat="+sw.lat()+"&swLng="+sw.lng()+"&neLat="+ne.lat()+"&neLng="+ne.lng(),
-			    method: "GET"
-			}).success(function(data, status, headers, config) {
-				if(data=="null"){
-					console.log("Error: Aquí no hay marcadores.");
-					$scope.clearMarkers(true);
-				}else{
-					$scope.clearMarkers();
-
-					for(var i in data){						
-
-						garito = new google.maps.LatLng(data[i].lat,data[i].lng);
-						if(!$scope.inMarker(data[i])){
-							cont = $scope.marker.length;
-							console.log("Añadiendo "+data[i].id);
-							$scope.marker[cont] = new google.maps.Marker({
-								map: map,
-								icon: tipo[data[i].tipo_id],
-								position: garito
-							});
-
-							//datos del garito
-							$scope.marker[cont].set("id",data[i].id);
-							$scope.marker[cont].set("nombre",data[i].nombre);
-							$scope.marker[cont].set("direccion",data[i].direccion);
-							$scope.marker[cont].set("tipo_id",data[i].tipo_id);
-
-						  	$scope.infowindow[cont] = new google.maps.InfoWindow({
-						    	content: '<div class="info"><p>Lorem ipsum #'+data[i].id+'</p></div>'
-						  	});
-						  	google.maps.event.addListener($scope.marker[cont],'click', (function(marker,infowindow){ 
-							    return function() {
-							    	$scope.info(marker,infowindow);
-							    };
-							})($scope.marker[cont],$scope.infowindow[cont]));  
-						}
-					}
-				}
-			}).error(function(data, status, headers, config) {
-			    $scope.status = status;
-			});
+	  	// At zoom change
+		google.maps.event.addListener($scope.map, 'idle', function(){
+		    $scope.refocus();
 		});
 	};
 
