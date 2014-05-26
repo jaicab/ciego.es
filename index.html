@@ -16,19 +16,16 @@
 
 
 
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-route.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-sanitize.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-animate.js"></script>
-		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCKld14xVtWC0JBFk3rYquXzQhShqqvmtw&sensor=false&libraries=places"></script>
-	</head>
+		</head>
 	<body>
-	<body ng-controller="AppController">
+	<body ng-controller="MapCtrl">
 		<header>
 			<div class="tope_alto border_left">
 				<div class="logo">
 					<img src="img/logo.svg" alt="Ciego.es - Beber barato es posible">
 				</div>
+
+				<a ng-click="newGarito()" class="btn" ng-hide="focus">Nuevo garito</a>
 
 				<div class="desktop" id="resultados">
 					<div class="garito" ng-repeat="garito in marker | orderBy:'id':true | limitTo: 100">
@@ -53,6 +50,13 @@
 		</footer>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-route.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-sanitize.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-animate.js"></script>
+		
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCKld14xVtWC0JBFk3rYquXzQhShqqvmtw&sensor=false&libraries=places"></script>
+		
 		<script src="js/core-ck.js"></script>
 	</body>
 </html>
