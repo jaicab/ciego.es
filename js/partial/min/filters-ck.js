@@ -1,0 +1,1 @@
+ciego.filter("unsafe",function(t){return function(n){return t.trustAsHtml(n)}});
