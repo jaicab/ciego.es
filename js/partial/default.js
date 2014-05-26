@@ -4,12 +4,12 @@ WebFont.load({
     }
   });
 
-var map;
-var geocoder = new google.maps.Geocoder();
-var bounds = new google.maps.LatLngBounds();
-var aqui = new google.maps.LatLng(40.416775, -3.703790);
-var actual;
-var ciego = angular.module('ciego', ['ngSanitize','ngAnimate']);
+// var map;
+// var geocoder = new google.maps.Geocoder();
+// var bounds = new google.maps.LatLngBounds();
+// var aqui = new google.maps.LatLng(40.416775, -3.703790);
+// var actual;
+var ciego = angular.module('ciego', ['ngRoute','ngSanitize','ngAnimate']);
 
 
 
