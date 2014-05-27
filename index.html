@@ -19,36 +19,82 @@
 		</head>
 	<body>
 	<body ng-controller="MapCtrl">
-		<header>
+
+		<div class="aviso" ng-show="aviso">
+			<a href="javascript:void(0)" ng-click="aviso = false" class="typcn typcn-delete-outline"></a>
+			<span class="typcn typcn-{{aviso.tipo}}"></span>
+			<p>{{aviso.msg | unsafe}}</p>
+		</div>
+
+		<header id="header">
 			<div class="tope_alto border_left">
 				<div class="logo">
 					<img src="img/logo.svg" alt="Ciego.es - Beber barato es posible">
 				</div>
 
-				<a ng-click="newGarito()" class="but" ng-hide="nuevo">Nuevo garito</a>
-				<div class="nuevo" ng-show="nuevo">
-						<h2>Nuevo garito</h2>
+				<nav>
+					<ul>
+						<li>
+							<a ng-click="toggleGarito()" ng-class="{open: nuevo}" class="button block"><span class="typcn typcn-plus"></span> Nuevo garito</a>
+						</li><li>
+							<a href="contacto" class="button block"><span class="typcn typcn-info-large"></span> Info</a>
+						</li>
+					</ul>
+				</nav>
+				
+				<div class="nuevo" id="nuevo" ng-show="nuevo">
 					<form ng-submit="publicarGarito()">
-						<input type="text" ng-model="nuevo.nombre" placeholder="Nombre" required>
-						<input type="text" ng-model="nuevo.ciudad" placeholder="Ciudad" required>
-						<input type="text" ng-model="nuevo.provincia" placeholder="Provincia" required>
-						<input type="text" ng-model="nuevo.direccion" placeholder="Dirección" ng-blur="codeAddress(''+nuevo.direccion+' '+nuevo.direccion+' '+nuevo.provincia)" required>
-						<select ng-model="nuevo.tipo" required>
-							<option value="">Selecciona...</option>
-							<option value="0">Cervezas</option>
-							<option value="1">Vinos</option>
-							<option value="2">Copas</option>
-							<option value="3">Sidras</option>
-						</select>
-						<input type="number" ng-model="nuevo.precio" placeholder="Precio">
-						<textarea ng-model="nuevo.descripcion" placeholder="Descripción"></textarea>
+						<div class="field">
 
-						<input type="submit" value="Publicar">
-						<input type="reset" value="Cancelar" ng-click="cancelarGarito()">
+							<input type="text" ng-model="nuevo.nombre" placeholder="Nombre" required>
+						
+						</div><div class="field half">
+						
+							<input type="text" ng-model="nuevo.ciudad" placeholder="Ciudad" required>
+						
+						</div><div class="field half">
+						
+						<div class="select"><select ng-model="nuevo.provincia" required>
+								<option value="">Provincia</option>
+								<option ng-repeat="provincia in provincias" value="{{$index}}">{{provincia}}</option>
+							</select></div>
+						
+						</div><div class="field">
+						
+							<input type="text" ng-model="nuevo.direccion" placeholder="Dirección" ng-blur="codeAddress(''+nuevo.direccion+' '+nuevo.direccion+' '+nuevo.provincia)" required>
+						
+						</div><div class="field half">
+						
+							<div class="select"><select ng-model="nuevo.tipo" required>
+								<option value="">Tipo...</option>
+								<option value="0">Cervezas</option>
+								<option value="1">Vinos</option>
+								<option value="2">Copas</option>
+								<option value="3">Sidras</option>
+							</select></div>
+						
+						</div><div class="field half">
+						
+							<input type="number" ng-model="nuevo.precio" max="10" min="0" placeholder="Precio (€)">
+						
+						</div><div class="field">
+						
+							<textarea ng-model="nuevo.descripcion" placeholder="Descripción"></textarea>
+						
+						</div><div class="field half">
+						
+							<input type="submit" value="Publicar">
+						
+						</div><div class="field half">
+						
+							<input type="reset" value="Cancelar" ng-click="toggleGarito()">
+						
+						</div>
 					</form>
 				</div>
 
-				<div class="desktop" id="resultados" ng-hide="nuevo">
+				<div class="desktop" id="resultados" ng-hide="nuevo || !marker.length">
+					<h3>{{marker.length}} resultados</h3>
 					<div class="garito" ng-repeat="garito in marker | orderBy:'id':true | limitTo: 100">
 						<div class="icon" ng-bind-html="tipo_svg[{{garito.tipo_id}}] | unsafe"></div>
 						<h3 class="nombre" data-id="{{garito.id}}">{{garito.nombre}}</h3>
@@ -58,7 +104,7 @@
 			</div>
 		</header>
 
-		<section>
+		<section id="section">
 			<form method="POST" id="formBuscar" ng-submit="codeAddress(data.buscar)">
 				<input ng-model="data.buscar" type="text" name="buscar" placeholder="Buscar ciego en..." id="campoBuscar"/><a id="buscar" class="typcn typcn-arrow-right-thick"></a>
 			</form>

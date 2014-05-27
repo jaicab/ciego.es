@@ -1,6 +1,8 @@
 
 *, *:before, *:after {
-  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
  }
 
  
@@ -35,6 +37,24 @@ h1{
 img{
 	max-width:100%;
 }
+
+nav ul{
+	list-style: none;
+	padding: 0 0 0.5em 0;
+	margin: 0;
+
+	li{
+		display: inline-block;
+		width: 50%;
+	}
+	li:first-child{
+		padding-right: 0.25em;
+	}
+	li:last-child{
+		padding-left: 0.25em;
+	}
+}
+
 #mapa img{
 	max-width:none;
 }
