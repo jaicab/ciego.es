@@ -18,7 +18,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		msg: '<div class="left"><p>Ciego.es es un experimento de <i>AngularJS</i> desarrollado por <a href="http://jaicab.com" target="_blank">Jaime Caballero</a> y se encuentra en fase <b>beta</b>. Si algo falla, no dudes en contactar conmigo:</p><ul>' +
 		'<li><span class="typcn typcn-social-github-circular"></span> <a target="_blank" href="http://github.com/jaicab">@jaicab</a></li>' + 
 		'<li><span class="typcn typcn-social-twitter-circular"></span> <a target="_blank" href="http://twitter.com/jaicab_">@jaicab_</a></li>' + 
-		'<li><span class="typcn typcn-social-at-circular"></span> <a target="_blank" href="mailto:contact@jaicab.com">contact@jaicab.com</a></li>' + 
+		'<li><span class="typcn typcn-social-at-circular"></span> <a href="mailto:contact@jaicab.com">contact@jaicab.com</a></li>' + 
 		'</ul><p>AVISO: Ciego.es recomienda un consumo responsable. No nos hacemos responsables de un mal uso de este producto o derivados.</p></div>'
 	}
 
@@ -199,7 +199,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 			if(status == google.maps.GeocoderStatus.OK) {
 
 				if (results[0].address_components.length) {
-	    			$scope.lugar = results[0].address_components[0].short_name;
+	    			$scope.lugar = results[0].address_components[0].long_name;
 		    	} else {  		
 			    	$scope.lugar = results[0].formated_address;
 		    	}
@@ -224,7 +224,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 
 				$scope.aviso = { 
 					tipo: 'info', 
-					msg: '<p>Si nos da permiso, Ciego.es utilizará su ubicación para mejorar su experiencia en el sitio.</p><p>No almacenaremos su ubicación en ningún momento.</p>'
+					msg: '<p>Si nos da permiso, Ciego.es utilizará su ubicación para mejorar su experiencia en el sitio. No almacenaremos su ubicación en ningún momento.</p>'
 				}
 
 			    browserSupportFlag = true;
@@ -344,7 +344,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 
 		var mapOptions = {
 			center: $scope.aqui,
-			zoom: 14,
+			zoom: 6,
 			draggable: true,
 			scrollwheel: true,
 			panControl: false,

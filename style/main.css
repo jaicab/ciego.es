@@ -1600,6 +1600,7 @@ svg.cider {
     font-size: 1em;
     background: #a98700;
     color: white;
+    font-weight: normal;
     text-align: center; }
 
 .garito {
@@ -1648,7 +1649,7 @@ svg.cider {
 
 .aviso {
   padding: 1em;
-  position: fixed;
+  position: absolute;
   text-align: center;
   width: 100%;
   top: 0;
@@ -1685,7 +1686,7 @@ svg.cider {
       -ms-transform: scale(1.5);
       transform: scale(1.5); }
   .aviso .bigicon {
-    font-size: 6em;
+    font-size: 4em;
     line-height: 1;
     margin: 0;
     padding: 0;
@@ -1698,18 +1699,7 @@ svg.cider {
     font-size: 1em;
     font-weight: bold; }
   .aviso ul {
-    list-style: none;
-    padding: 0 2em 0 1em;
-    margin: 0; }
-    .aviso ul li {
-      display: inline-block;
-      width: 33.33%;
-      text-align: center; }
-      .aviso ul li a {
-        display: block; }
-      .aviso ul li .typcn {
-        font-size: 4em;
-        line-height: 1; }
+    list-style: none; }
   @media (min-width: 60em) {
     .aviso {
       padding: 1em 2em;
@@ -1724,7 +1714,19 @@ svg.cider {
       border: 0.25em solid #d9d9d9;
       border-top: none; }
       .aviso .bigicon {
-        font-size: 12em; } }
+        font-size: 12em; }
+      .aviso ul {
+        padding: 0 2em 0 1em;
+        margin: 0; }
+        .aviso ul li {
+          display: inline-block;
+          width: 33.33%;
+          text-align: center; }
+          .aviso ul li a {
+            display: block; }
+          .aviso ul li .typcn {
+            font-size: 4em;
+            line-height: 1; } }
 
 .info {
   min-width: 300px;

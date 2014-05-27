@@ -1,6 +1,6 @@
 .aviso{
 	padding: 1em;
-	position: fixed;
+	position: absolute;
 	text-align: center;
 	width: 100%;
 	top:0;
@@ -45,7 +45,7 @@
 	}
 
 	.bigicon{
-		font-size: 6em;
+		font-size: 4em;
 		line-height: 1;
 		margin: 0;
 		padding: 0;
@@ -66,23 +66,6 @@
 
 	ul{
 		list-style: none;
-		padding: 0 2em 0 1em;
-		margin: 0;
-
-		li{
-			display: inline-block;
-			width: 33.33%;
-			text-align: center;
-			
-			a{
-				display: block;
-			}
-
-			.typcn{
-				font-size: 4em;
-				line-height: 1;
-			}
-		}
 	}
 
 
@@ -100,6 +83,26 @@
 
 		.bigicon{
 			font-size: 12em;
+		}
+
+		ul{
+			padding: 0 2em 0 1em;
+			margin: 0;
+
+			li{
+				display: inline-block;
+				width: 33.33%;
+				text-align: center;
+				
+				a{
+					display: block;
+				}
+
+				.typcn{
+					font-size: 4em;
+					line-height: 1;
+				}
+			}
 		}
 	}
 }
