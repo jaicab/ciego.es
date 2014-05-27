@@ -15,6 +15,9 @@
 .block{
 	display: block;
 }
+.left{
+	text-align: left;
+}
 
 @include bp(desktop-small) {
 

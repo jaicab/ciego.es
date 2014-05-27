@@ -37,6 +37,10 @@ h1{
 img{
 	max-width:100%;
 }
+hr{
+	border-top: none;
+	border-bottom: 1px dashed $color_logo;
+}
 
 nav ul{
 	list-style: none;

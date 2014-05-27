@@ -1,17 +1,62 @@
-
+#resultados{
+	padding-bottom: 3em;
+	h2{
+		padding: .35em;
+		margin:0;
+		font-size: 1em;
+		background: $color_alter;
+		color: white;
+		text-align: center;
+	}
+}
 .garito{
-	border-top:1px solid $color_alter;
-	padding:1em;
-}
-.garito .icon{
-	float:left;
-	max-width:15%;
-	max-height: 2em;
-	padding:0 .5em 0 0;
-}
-.garito .icon svg{
-	max-width:100%;
-	max-height: 100%;
+	//border-bottom:1px solid $color_alter;
+	padding: .75em 0.5em;
+	position: relative;
+
+	.precio{
+		float: right;
+		padding: 0 .5em .1em .5em;
+		margin-right: .25em;
+		text-align: center;
+		font: 1.5em/1.75 Georgia, serif;
+		border-radius: 50%;
+		background: $color_logo;
+		border: 1px solid white;
+		box-shadow: 0 0 5px lighten(#312b1e,20%);
+		text-shadow: 0 1px 1px black;
+
+		&:after{
+			content: '€';
+			font-size: 0.75em;
+			position: relative;
+			top: -0.25em;
+		}
+	}
+
+	.nombre{
+		//border-bottom: 1px dashed $color_logo;
+		//padding-bottom: 0.25em;
+	}
+
+	.direccion{
+		background: #312b1e;
+		margin: 0.5em 0 0 0;
+		padding: .5em;
+		border: 1px solid lighten(#312b1e,20%);
+	}
+	
+	.icon{
+		float:left;
+		max-width:15%;
+		max-height: 2em;
+		padding:0 .5em 0 0;
+
+	 	svg{
+			max-width: 25px;
+			max-height: 25px;
+		}
+	}
 }
 
 

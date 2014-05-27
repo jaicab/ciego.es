@@ -1312,6 +1312,10 @@ h1 {
 img {
   max-width: 100%; }
 
+hr {
+  border-top: none;
+  border-bottom: 1px dashed #a92929; }
+
 nav ul {
   list-style: none;
   padding: 0 0 0.5em 0;
@@ -1332,7 +1336,7 @@ input, textarea, select {
   -webkit-appearance: none;
   display: block;
   width: 100%;
-  outline: none;
+  outline-color: #e6e6e6;
   border-radius: 0;
   padding: 0.5em;
   font-size: 0.8em;
@@ -1350,9 +1354,11 @@ input[type="submit"], input[type="button"], input[type="reset"], .button {
   display: inline-block;
   padding: 0.5em;
   font-size: 0.8em;
+  -webkit-transition: 0.5s cubic-bezier(0.29, 1.24, 0.96, 1.25);
+  transition: 0.5s cubic-bezier(0.29, 1.24, 0.96, 1.25);
   background: #a98700;
-  color: #e6e6e6;
-  border: none; }
+  border: none;
+  color: #e6e6e6; }
   input[type="submit"].block, input[type="button"].block, input[type="reset"].block, .button.block {
     width: 100%; }
 
@@ -1436,6 +1442,9 @@ input[type="checkbox"] {
 .block {
   display: block; }
 
+.left {
+  text-align: left; }
+
 @media (min-width: 60em) {
   .desktop {
     display: block; }
@@ -1508,7 +1517,8 @@ footer {
     border-top: 1px solid #a92929;
     border-left: 1px solid #a92929;
     border-bottom: 1px solid #a92929;
-    display: inline-block; }
+    display: inline-block;
+    outline: none !important; }
   #formBuscar #buscar {
     background: #a92929;
     padding: 0;
@@ -1582,19 +1592,49 @@ svg.cider {
   margin: 0;
   clear: left; }
 
+#resultados {
+  padding-bottom: 3em; }
+  #resultados h2 {
+    padding: 0.35em;
+    margin: 0;
+    font-size: 1em;
+    background: #a98700;
+    color: white;
+    text-align: center; }
+
 .garito {
-  border-top: 1px solid #a98700;
-  padding: 1em; }
-
-.garito .icon {
-  float: left;
-  max-width: 15%;
-  max-height: 2em;
-  padding: 0 0.5em 0 0; }
-
-.garito .icon svg {
-  max-width: 100%;
-  max-height: 100%; }
+  padding: 0.75em 0.5em;
+  position: relative; }
+  .garito .precio {
+    float: right;
+    padding: 0 0.5em 0.1em 0.5em;
+    margin-right: 0.25em;
+    text-align: center;
+    font: 1.5em/1.75 Georgia, serif;
+    border-radius: 50%;
+    background: #a92929;
+    border: 1px solid white;
+    -webkit-box-shadow: 0 0 5px #706245;
+    box-shadow: 0 0 5px #706245;
+    text-shadow: 0 1px 1px black; }
+    .garito .precio:after {
+      content: '€';
+      font-size: 0.75em;
+      position: relative;
+      top: -0.25em; }
+  .garito .direccion {
+    background: #312b1e;
+    margin: 0.5em 0 0 0;
+    padding: 0.5em;
+    border: 1px solid #706245; }
+  .garito .icon {
+    float: left;
+    max-width: 15%;
+    max-height: 2em;
+    padding: 0 0.5em 0 0; }
+    .garito .icon svg {
+      max-width: 25px;
+      max-height: 25px; }
 
 .garito.ng-enter, .garito.ng-leave {
   -webkit-transition: 0.5s linear all;
@@ -1631,23 +1671,45 @@ svg.cider {
     box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.7);
     -webkit-transition: 0.25s -webkit-box-shadow, 0.25s top;
     transition: 0.25s box-shadow, 0.25s top; }
-  .aviso a {
+  .aviso .close {
     position: absolute;
     right: 1em;
     top: 0.75em;
     font-size: 2em;
-    color: #000; }
-  .aviso span {
+    color: #000;
+    -webkit-transition: 0.25s cubic-bezier(0.29, 1.24, 0.96, 1.25);
+    transition: 0.25s cubic-bezier(0.29, 1.24, 0.96, 1.25); }
+    .aviso .close:hover {
+      color: #a92929;
+      -webkit-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+      transform: scale(1.5); }
+  .aviso .bigicon {
     font-size: 6em;
     line-height: 1;
     margin: 0;
     padding: 0;
     color: #a92929; }
-    .aviso span.typcn-tick {
+    .aviso .bigicon.typcn-tick {
       color: #4b6325; }
+    .aviso .bigicon.typcn-info {
+      color: #a98700; }
   .aviso p {
     font-size: 1em;
     font-weight: bold; }
+  .aviso ul {
+    list-style: none;
+    padding: 0 2em 0 1em;
+    margin: 0; }
+    .aviso ul li {
+      display: inline-block;
+      width: 33.33%;
+      text-align: center; }
+      .aviso ul li a {
+        display: block; }
+      .aviso ul li .typcn {
+        font-size: 4em;
+        line-height: 1; }
   @media (min-width: 60em) {
     .aviso {
       padding: 1em 2em;
@@ -1656,17 +1718,20 @@ svg.cider {
       left: 0;
       right: 0;
       width: 50%;
-      height: 50%;
       margin: auto;
       -webkit-transition: 0.5s top, 0.5s 0.25s -webkit-box-shadow;
       transition: 0.5s top, 0.5s 0.25s box-shadow;
       border: 0.25em solid #d9d9d9;
       border-top: none; }
-      .aviso span {
+      .aviso .bigicon {
         font-size: 12em; } }
 
 .info {
   min-width: 300px;
   color: #000;
   font-family: inherit !important; }
+  .info h3 {
+    margin: 0; }
+  .info p {
+    margin: 0; }
 /*# sourceMappingURL=main.css.map */

@@ -30,15 +30,21 @@
 	}
 
 
-	a{
+	.close{
 		position: absolute;
 		right: 1em;
 		top: .75em;
 		font-size: 2em;
 		color: #000;
+		transition: 0.25s cubic-bezier(.29,1.24,.96,1.25);
+
+		&:hover{
+			color: $color_logo;
+			transform: scale(1.5);
+		}
 	}
 
-	span{
+	.bigicon{
 		font-size: 6em;
 		line-height: 1;
 		margin: 0;
@@ -48,11 +54,35 @@
 		&.typcn-tick{
 			color: #4b6325;
 		}
+		&.typcn-info{
+			color: $color_alter;
+		}
 	}
 
 	p{
 		font-size: 1em;
 		font-weight: bold;
+	}
+
+	ul{
+		list-style: none;
+		padding: 0 2em 0 1em;
+		margin: 0;
+
+		li{
+			display: inline-block;
+			width: 33.33%;
+			text-align: center;
+			
+			a{
+				display: block;
+			}
+
+			.typcn{
+				font-size: 4em;
+				line-height: 1;
+			}
+		}
 	}
 
 
@@ -63,13 +93,12 @@
 		left: 0;
 		right: 0;
 		width: 50%;
-		height: 50%;
 		margin: auto;
 		transition: .5s top, .5s .25s box-shadow;
 		border: 0.25em solid darken($color_text,5%);
 		border-top: none;
 
-		span{
+		.bigicon{
 			font-size: 12em;
 		}
 	}

@@ -21,9 +21,9 @@
 	<body ng-controller="MapCtrl">
 
 		<div class="aviso" ng-show="aviso">
-			<a href="javascript:void(0)" ng-click="aviso = false" class="typcn typcn-delete-outline"></a>
-			<span class="typcn typcn-{{aviso.tipo}}"></span>
-			<p>{{aviso.msg | unsafe}}</p>
+			<a href="javascript:void(0)" ng-click="aviso = false" class="close typcn typcn-delete"></a>
+			<span class="bigicon typcn typcn-{{aviso.tipo}}"></span>
+			<div ng-bind-html="aviso.msg | unsafe"></div>
 		</div>
 
 		<header id="header">
@@ -37,12 +37,12 @@
 						<li>
 							<a ng-click="toggleGarito()" ng-class="{open: nuevo}" class="button block"><span class="typcn typcn-plus"></span> Nuevo garito</a>
 						</li><li>
-							<a href="contacto" class="button block"><span class="typcn typcn-info-large"></span> Info</a>
+							<a href="#" ng-click="aviso = avisoinfo" class="button block"><span class="typcn typcn-info-large"></span> Info</a>
 						</li>
 					</ul>
 				</nav>
 				
-				<div class="nuevo" id="nuevo" ng-show="nuevo">
+				<div class="nuevo" ng-show="nuevo">
 					<form ng-submit="publicarGarito()">
 						<div class="field">
 
@@ -50,18 +50,18 @@
 						
 						</div><div class="field half">
 						
-							<input type="text" ng-model="nuevo.ciudad" placeholder="Ciudad" required>
+							<input type="text" ng-model="nuevo.ciudad" placeholder="Ciudad" ng-blur="buscarGarito()" required>
 						
 						</div><div class="field half">
 						
-						<div class="select"><select ng-model="nuevo.provincia" required>
+						<div class="select"><select ng-model="nuevo.provincia" ng-blur="buscarGarito()" required>
 								<option value="">Provincia</option>
-								<option ng-repeat="provincia in provincias" value="{{$index}}">{{provincia}}</option>
+								<option ng-repeat="provincia in provincias"  value="{{$index}}">{{provincia}}</option>
 							</select></div>
 						
 						</div><div class="field">
 						
-							<input type="text" ng-model="nuevo.direccion" placeholder="Dirección" ng-blur="codeAddress(''+nuevo.direccion+' '+nuevo.direccion+' '+nuevo.provincia)" required>
+							<input type="text" ng-model="nuevo.direccion" placeholder="Dirección" ng-blur="buscarGarito()" required>
 						
 						</div><div class="field half">
 						
@@ -75,7 +75,7 @@
 						
 						</div><div class="field half">
 						
-							<input type="number" ng-model="nuevo.precio" max="10" min="0" placeholder="Precio (€)">
+							<input type="text" ng-model="nuevo.precio" placeholder="Precio (€)">
 						
 						</div><div class="field">
 						
@@ -93,12 +93,20 @@
 					</form>
 				</div>
 
-				<div class="desktop" id="resultados" ng-hide="nuevo || !marker.length">
-					<h3>{{marker.length}} resultados</h3>
+				<div class="desktop" id="resultados" ng-hide="nuevo">
+					<h2>
+						<span ng-show="marker.length == 0">No hemos encontrado garitos</span>
+						<span ng-show="marker.length == 1">{{marker.length}} garito</span>
+						<span ng-show="marker.length > 1">{{marker.length}} garitos</span>
+						<span ng-show="lugar"> en {{lugar}}</span>.</h2>
 					<div class="garito" ng-repeat="garito in marker | orderBy:'id':true | limitTo: 100">
-						<div class="icon" ng-bind-html="tipo_svg[{{garito.tipo_id}}] | unsafe"></div>
-						<h3 class="nombre" data-id="{{garito.id}}">{{garito.nombre}}</h3>
-						<p class="desc">{{garito.direccion}}</p>
+						<div class="precio">{{garito.precio}}</div>
+						<div class="icon" ng-click="info($index)" ng-bind-html="tipo_svg[{{garito.tipo_id}}] | unsafe"></div>
+						<h3 class="nombre" ng-click="info($index)" data-id="{{garito.id}}"><a href="#">{{garito.nombre}}</a></h3>
+						<p class="direccion">
+							{{garito.direccion}} - 
+							{{garito.ciudad}} ({{provincias[garito.provincia]}})
+						</p>
 					</div>
 				</div>
 			</div>
