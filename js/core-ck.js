@@ -125,68 +125,66 @@ ciego.factory("Data", function(){
 		geocoder: new google.maps.Geocoder(),
 		bounds: new google.maps.LatLngBounds(),
 		aqui: new google.maps.LatLng(40.416775, -3.703790),
+		lugar: 'Madrid',
 		actual: '',
 		marker: [],
 		infowindow: [],
 		nuevo: false,
-		aviso: {
-			tipo: "info",
-			msg: "Esto es un experimento de AngularJS desarrollado por Jaime Caballero y se encuentra en fase beta. No nos hacemos responsables de un mal uso de este producto."
-		},
-		provincias: {
-			0: "Álava",
-			1: "Albacete",
-			2: "Alicante/Alacant",
-			3: "Almería",
-			4: "Asturias",
-			5: "Ávila",
-			6: "Badajoz",
-			7: "Barcelona",
-			8: "Burgos",
-			9: "Cáceres",
-			10: "Cádiz",
-			11: "Cantabria",
-			12: "Castellón/Castelló",
-			13: "Ceuta",
-			14: "Ciudad Real",
-			15: "Córdoba",
-			16: "Cuenca",
-			17: "Girona",
-			18: "Las Palmas",
-			19: "Granada",
-			20: "Guadalajara",
-			21: "Guipúzcoa",
-			22: "Huelva",
-			23: "Huesca",
-			24: "Illes Balears",
-			25: "Jaén",
-			26: "A Coruña",
-			27: "La Rioja",
-			28: "León",
-			29: "Lleida",
-			30: "Lugo",
-			31: "Madrid",
-			32: "Málaga",
-			33: "Melilla",
-			34: "Murcia",
-			35: "Navarra",
-			36: "Ourense",
-			37: "Palencia",
-			38: "Pontevedra",
-			39: "Salamanca",
-			40: "Segovia",
-			41: "Sevilla",
-			42: "Soria",
-			43: "Tarragona",
-			44: "Santa Cruz de Tenerife",
-			45: "Teruel",
-			46: "Toledo",
-			47: "Valencia/Valéncia",
-			48: "Valladolid",
-			49: "Vizcaya",
-			50: "Zamora",
-			51: "Zaragoza"
-		}
+		aviso: false,
+		provincias: [
+			"Álava",
+			"Albacete",
+			"Alicante/Alacant",
+			"Almería",
+			"Asturias",
+			"Ávila",
+			"Badajoz",
+			"Barcelona",
+			"Burgos",
+			"Cáceres",
+			"Cádiz",
+			"Cantabria",
+			"Castellón/Castelló",
+			"Ceuta",
+			"Ciudad Real",
+			"Córdoba",
+			"Cuenca",
+			"Girona",
+			"Las Palmas",
+			"Granada",
+			"Guadalajara",
+			"Guipúzcoa",
+			"Huelva",
+			"Huesca",
+			"Illes Balears",
+			"Jaén",
+			"A Coruña",
+			"La Rioja",
+			"León",
+			"Lleida",
+			"Lugo",
+			"Madrid",
+			"Málaga",
+			"Melilla",
+			"Murcia",
+			"Navarra",
+			"Ourense",
+			"Palencia",
+			"Pontevedra",
+			"Salamanca",
+			"Segovia",
+			"Sevilla",
+			"Soria",
+			"Tarragona",
+			"Santa Cruz de Tenerife",
+			"Teruel",
+			"Toledo",
+			"Valencia/Valéncia",
+			"Valladolid",
+			"Vizcaya",
+			"Zamora",
+			"Zaragoza"
+		]
 	}
 });
 
@@ -211,11 +209,23 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	$scope.infowindow = Data.infowindow;
 	$scope.map = Data.map;
 	$scope.aqui = Data.aqui;
+	$scope.lugar = Data.lugar;
 	$scope.actual = Data.actual;
 	$scope.marker = Data.marker;
 	$scope.nuevo = Data.nuevo;
 	$scope.aviso = Data.aviso;
 	$scope.provincias = Data.provincias;
+	
+	$scope.avisoinfo = { 
+		tipo: 'info', 
+		msg: '<div class="left"><p>Ciego.es es un experimento de <i>AngularJS</i> desarrollado por <a href="http://jaicab.com" target="_blank">Jaime Caballero</a> y se encuentra en fase <b>beta</b>. Si algo falla, no dudes en contactar conmigo:</p><ul>' +
+		'<li><span class="typcn typcn-social-github-circular"></span> <a target="_blank" href="http://github.com/jaicab">@jaicab</a></li>' + 
+		'<li><span class="typcn typcn-social-twitter-circular"></span> <a target="_blank" href="http://twitter.com/jaicab_">@jaicab_</a></li>' + 
+		'<li><span class="typcn typcn-social-at-circular"></span> <a target="_blank" href="mailto:contact@jaicab.com">contact@jaicab.com</a></li>' + 
+		'</ul><p>AVISO: Ciego.es recomienda un consumo responsable. No nos hacemos responsables de un mal uso de este producto o derivados.</p></div>'
+	}
+
+	$scope.tipo_bebida = ["Cervezas", "Vinos", "Copas", "Sidras"];
 
 	$scope.tipo_svg = new Array(4);
 	$scope.tipo_svg[0] = '<svg class="beer" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="-1 -30 70 1" enable-background="new 0 0 512 512" xml:space="preserve"><g><path d="M23.04 -32.183v-13.824h-9.216v9.216q0 1.908 1.35 3.258t3.258 1.35h4.608zm36.864 16.128v6.912h-41.472v-6.912l4.608 -6.912h-4.608q-5.724 0 -9.774 -4.05t-4.05 -9.774v-11.52l-2.304 -2.304 1.152 -4.608h17.28l1.152 -4.608h34.56l1.152 6.912 -2.304 1.152v28.8z"></path></g></svg>';
@@ -269,8 +279,8 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	* Clears all the info windows
 	*/	
 	$scope.clearInfowindows = function() {
-		for (var i = 0; i < $scope.infowindow.length; i++ ) {
-			$scope.infowindow[i].close();
+		for (var i = 0; i < $scope.marker.length; i++ ) {
+			$scope.marker[i].infowindow.close();
 		}
 	}
 
@@ -279,7 +289,6 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	*/	
 	$scope.info = function(count){
 		$scope.clearInfowindows();
-		//ventanita.setContent('<div class="info">Pene pene pene'+marcador.id+'</div>');
 		$scope.marker[count].infowindow.open($scope.map,$scope.marker[count]);
 	}
 
@@ -292,6 +301,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		$scope.actual.setPosition($scope.aqui);
 		$scope.map.setCenter($scope.aqui);
 		$scope.map.setZoom(15);
+		$scope.placeName();
 	}
 
 	/**
@@ -302,12 +312,18 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 			$scope.nuevo = false;
 		}else{
 			$scope.nuevo = {};
-			$scope.aviso = {
-				tipo: "tick",
-				msg: "Probar"
-			};
 		}
 
+	}
+
+	$scope.buscarGarito = function(){
+		var frase = '';
+		if(!angular.isUndefined($scope.nuevo.direccion)) frase += $scope.nuevo.direccion + ' ';
+		if(!angular.isUndefined($scope.nuevo.ciudad)) frase += $scope.nuevo.ciudad + ' ';
+		if(!angular.isUndefined($scope.nuevo.provincia)) frase += $scope.provincias[$scope.nuevo.provincia] + ' ';
+		console.log(frase);
+		
+		$scope.codeAddress(frase);
 	}
 
 	/**
@@ -315,6 +331,37 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	*/
 	$scope.publicarGarito = function(){
 		console.log($scope.nuevo);
+
+		$http({
+		    url: "/lib/ajax/nuevo.php?nombre=" + $scope.nuevo.nombre + 
+		    	"&ciudad=" + $scope.nuevo.ciudad +
+		    	"&provincia=" + $scope.nuevo.provincia +
+		    	"&direccion=" + $scope.nuevo.direccion +
+		    	"&tipo=" + $scope.nuevo.tipo +
+				"&precio=" + $scope.nuevo.precio +
+				"&descripcion=" + $scope.nuevo.descripcion +
+				"&lat=" + $scope.aqui.lat() +
+				"&lng=" + $scope.aqui.lng(),
+		    method: "GET"
+		}).success(function(data, status, headers, config) {
+			if(data=="null"){
+
+				console.log("Error: Aquí pasa algo raro.");
+
+			}else{
+				
+				$scope.aviso = data;
+				
+				if(data.tipo == "tick"){
+					$scope.nuevo = false;
+					$scope.refocus();
+				}
+
+
+			}
+		}).error(function(data, status, headers, config) {
+		    $scope.status = status;
+		});
 	}
 
 
@@ -334,11 +381,39 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 			    	$scope.estoy_aqui(results[0].geometry.location);
 		    	}
 
+		    	if (results[0].address_components.length) {
+	    			$scope.lugar = results[0].address_components[0].short_name;
+		    	} else {  		
+			    	$scope.lugar = results[0].formated_address;
+		    	}
+
 			}else{
 				console.log("La geolocalización ha fallado: " + status + "\n No hemos podido encontrar '"+direccion+ "'");
 			}
 		});
 	}
+
+
+	/** 
+	* Reverse geocoding
+	*/
+	$scope.placeName = function(){
+		$scope.geocoder.geocode( { 'bounds': $scope.map.getBounds() }, function(results, status) {
+			if(status == google.maps.GeocoderStatus.OK) {
+
+				if (results[0].address_components.length) {
+	    			$scope.lugar = results[0].address_components[0].short_name;
+		    	} else {  		
+			    	$scope.lugar = results[0].formated_address;
+		    	}
+
+			}else{
+				console.log("La geolocalización ha fallado: " + status + "\n No hemos podido encontrar");
+			}
+		});
+	}
+
+	
 
 	/** 
 	* Geolocation via HTML5
@@ -349,12 +424,20 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		if(Modernizr.geolocation){
 			// Try W3C Geolocation (Preferred)
 			if(navigator.geolocation) {
+
+				$scope.aviso = { 
+					tipo: 'info', 
+					msg: '<p>Si nos da permiso, Ciego.es utilizará su ubicación para mejorar su experiencia en el sitio.</p><p>No almacenaremos su ubicación en ningún momento.</p>'
+				}
+
 			    browserSupportFlag = true;
 			    navigator.geolocation.getCurrentPosition(function(position) {
 			    	// Gotcha
+			    	$scope.aviso = false;
 			    	$scope.estoy_aqui(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
 			    }, function() {
 			    	// Oops!
+			    	$scope.aviso = false;
 			    	if (errorFlag == true) {
 				      alert("La geolocalización ha fallado.");
 				    } else {
@@ -375,6 +458,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	    $scope.bounds = $scope.map.getBounds();
 		var sw = $scope.bounds.getSouthWest();
 		var ne = $scope.bounds.getNorthEast();
+		$scope.placeName();
 
 	    // AJAX, boy
 
@@ -382,6 +466,10 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		    url: "/lib/ajax/viewport.php?swLat="+sw.lat()+"&swLng="+sw.lng()+"&neLat="+ne.lat()+"&neLng="+ne.lng(),
 		    method: "GET"
 		}).success(function(data, status, headers, config) {
+
+
+
+
 			if(data=="null"){
 
 				console.log("Error: Aquí no hay marcadores.");
@@ -412,11 +500,19 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 						$scope.marker[cont].set("id", lista[i].id);
 						$scope.marker[cont].set("nombre", lista[i].nombre);
 						$scope.marker[cont].set("direccion", lista[i].direccion);
+						$scope.marker[cont].set("ciudad", lista[i].ciudad);
+						$scope.marker[cont].set("provincia", lista[i].provincia);
+						$scope.marker[cont].set("precio", (0 + parseFloat(lista[i].precio)));
+						$scope.marker[cont].set("descripcion", lista[i].descripcion);
 						$scope.marker[cont].set("tipo_id", lista[i].tipo_id);
 
 						// Attach info window
 					  	$scope.marker[cont].set("infowindow", new google.maps.InfoWindow({
-					    	content: '<div class="info"><p>Lorem ipsum #'+lista[i].id+'</p></div>'
+					    	content: '<div class="info"><h3>' + 
+					    		lista[i].nombre + '</h3><p><b>' +
+					    		$scope.tipo_bebida[lista[i].tipo_id] +
+					    		'</b> desde <b>' + parseFloat(lista[i].precio) + '€</b></p><hr/></p>' +
+					    		lista[i].descripcion + '</p></div>'
 					  	}));
 
 					  	// Bind onclick event
@@ -429,6 +525,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 				}
 
 			}
+
 		}).error(function(data, status, headers, config) {
 		    $scope.status = status;
 		});
@@ -500,8 +597,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		$scope.mobile();
 
 		// Autocomplete. Powered by Google Places API
-		var input = (document.getElementById('campoBuscar'));
-		var autocomplete = new google.maps.places.Autocomplete(input,{types: ['(regions)'],componentRestrictions: {country: "es"}});
+		var autocomplete = new google.maps.places.Autocomplete(document.getElementById('campoBuscar'),{types: ['(regions)'],componentRestrictions: {country: "es"}});
 	  	autocomplete.bindTo('bounds', $scope.map);
 
 	  	google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -519,6 +615,8 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	    	} else {  		
 		    	$scope.estoy_aqui(place.geometry.location);
 	    	}
+
+	    	$scope.data.buscar = '';
 	    
 	  	});
 

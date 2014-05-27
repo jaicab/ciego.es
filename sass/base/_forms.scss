@@ -6,7 +6,7 @@ select
 	-webkit-appearance: none;
 	display: block;
 	width: 100%;
-	outline:none;
+	outline-color: $color_text;
 	border-radius:0;
 	padding: .5em;
 	font-size: .8em;
@@ -30,9 +30,10 @@ input[type="reset"],
 	padding:0.5em;
 	font-size: 0.8em;
 
+	transition: 0.5s cubic-bezier(.29,1.24,.96,1.25);
 	background:$color_alter;
-	color:$color_text;
 	border: none;
+	color:$color_text;
 
 	&.block{
 		width: 100%;
