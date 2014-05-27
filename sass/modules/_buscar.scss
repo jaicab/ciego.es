@@ -3,8 +3,8 @@
 	background:$color_base;
 	width:auto;
 	white-space: nowrap;
-	max-width:95%;
-	margin:0 auto 1em auto;
+	max-width:auto;
+	margin:0 auto .5em auto;
 	position: relative;
 
 	#campoBuscar{
@@ -36,7 +36,7 @@
 		position:absolute;
 		top:0.5em;
 		left:0.5em;
-		z-index:1000;
+		z-index:500;
 		min-width:25%;
 		max-width:50%;
 

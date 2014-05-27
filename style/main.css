@@ -1312,25 +1312,104 @@ h1 {
 img {
   max-width: 100%; }
 
+nav ul {
+  list-style: none;
+  padding: 0 0 0.5em 0;
+  margin: 0; }
+  nav ul li {
+    display: inline-block;
+    width: 50%; }
+  nav ul li:first-child {
+    padding-right: 0.25em; }
+  nav ul li:last-child {
+    padding-left: 0.25em; }
+
 #mapa img {
   max-width: none; }
 
-form input {
+input, textarea, select {
   font: inherit;
   -webkit-appearance: none;
+  display: block;
+  width: 100%;
   outline: none;
   border-radius: 0;
   padding: 0.5em;
-  font-size: 0.75em;
+  font-size: 0.8em;
   margin: 0;
   border: 1px solid #777;
   background: #e6e6e6;
   color: #000; }
 
-input[type="submit"], .but {
+textarea {
+  resize: vertical;
+  min-height: 120px; }
+
+input[type="submit"], input[type="button"], input[type="reset"], .button {
+  text-align: center;
+  display: inline-block;
+  padding: 0.5em;
+  font-size: 0.8em;
   background: #a98700;
   color: #e6e6e6;
-  padding: 0.5em; }
+  border: none; }
+  input[type="submit"].block, input[type="button"].block, input[type="reset"].block, .button.block {
+    width: 100%; }
+
+nav .button {
+  background: #a92929;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  font-size: 0.85em; }
+  nav .button.open {
+    background: #a98700; }
+
+input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus, input[type="button"]:hover, input[type="button"]:active, input[type="button"]:focus, input[type="reset"]:hover, input[type="reset"]:active, input[type="reset"]:focus, .button:hover, .button:active, .button:focus {
+  background: #a92929;
+  color: white;
+  cursor: pointer; }
+
+/*checkbox y radio*/
+input[type="checkbox"], input[type="radio"] {
+  width: auto;
+  -webkit-appearance: radio;
+  display: inline-block;
+  margin: 0.5em; }
+
+input[type="checkbox"] {
+  -webkit-appearance: checkbox; }
+
+/*select*/
+.select {
+  position: relative;
+  display: block; }
+
+.select:after {
+  content: "▼";
+  color: #a92929;
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  pointer-events: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 2em;
+  margin: 2px;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 2em;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0; }
+
+.field {
+  padding: 0.25em; }
+  .field.half {
+    width: 50%;
+    display: inline-block; }
 
 .desktop {
   display: none; }
@@ -1363,23 +1442,21 @@ input[type="submit"], .but {
   .resultados {
     padding-bottom: 3em; } }
 
-header {
-  height: 10%; }
-  header .logo {
-    text-align: center; }
-  header img {
-    margin: 0;
-    padding: 1em; }
-  @media (min-width: 60em) {
-    header {
-      height: 100%;
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 25%;
-      overflow: auto; }
-      header h1 {
-        font-size: 4em; } }
+header .logo {
+  text-align: center; }
+header img {
+  margin: 0;
+  padding: 1em 0.5em; }
+@media (min-width: 60em) {
+  header {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 25%;
+    overflow: auto; }
+    header h1 {
+      font-size: 4em; } }
 
 section {
   position: relative;
@@ -1421,8 +1498,8 @@ footer {
   background: #231f16;
   width: auto;
   white-space: nowrap;
-  max-width: 95%;
-  margin: 0 auto 1em auto;
+  max-width: auto;
+  margin: 0 auto 0.5em auto;
   position: relative; }
   #formBuscar #campoBuscar {
     font-size: 1em;
@@ -1448,7 +1525,7 @@ footer {
       position: absolute;
       top: 0.5em;
       left: 0.5em;
-      z-index: 1000;
+      z-index: 500;
       min-width: 25%;
       max-width: 50%; }
       #formBuscar #campoBuscar {
@@ -1463,6 +1540,23 @@ footer {
         width: 150%;
         -webkit-box-shadow: -1px 0 0.7em #a98700;
         box-shadow: -1px 0 0.7em #a98700; } }
+
+.nuevo {
+  padding: 0.25em;
+  margin-bottom: 0.5em;
+  background: #a98700;
+  overflow: hidden;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  max-height: 25em; }
+  .nuevo.ng-hide-add, .nuevo.ng-hide-remove {
+    display: block !important; }
+  .nuevo.ng-hide-remove, .nuevo.ng-hide-add.ng-hide-add-active {
+    max-height: 0; }
+  .nuevo.ng-hide-remove.ng-hide-remove-active, .nuevo.ng-hide-add {
+    max-height: 25em; }
+  .nuevo input[type="submit"], .nuevo input[type="button"], .nuevo input[type="reset"] {
+    background-color: #a92929; }
 
 svg.beer {
   fill: yellow;
@@ -1511,6 +1605,65 @@ svg.cider {
 
 .garito.ng-enter-active, .garito.ng-leave {
   opacity: 1; }
+
+.aviso {
+  padding: 1em;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  -webkit-transition: 0.5s top, 0.5s 0.25s -webkit-box-shadow;
+  transition: 0.5s top, 0.5s 0.25s box-shadow;
+  -webkit-box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.7);
+  color: #000;
+  background: #e6e6e6; }
+  .aviso.ng-hide-add, .aviso.ng-hide-remove {
+    display: block !important; }
+  .aviso.ng-hide-remove, .aviso.ng-hide-add.ng-hide-add-active {
+    top: -50%;
+    -webkit-box-shadow: 0 0 0 transparent;
+    box-shadow: 0 0 0 transparent; }
+  .aviso.ng-hide-remove.ng-hide-remove-active, .aviso.ng-hide-add {
+    top: 0;
+    -webkit-box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.7);
+    -webkit-transition: 0.25s -webkit-box-shadow, 0.25s top;
+    transition: 0.25s box-shadow, 0.25s top; }
+  .aviso a {
+    position: absolute;
+    right: 1em;
+    top: 0.75em;
+    font-size: 2em;
+    color: #000; }
+  .aviso span {
+    font-size: 6em;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    color: #a92929; }
+    .aviso span.typcn-tick {
+      color: #4b6325; }
+  .aviso p {
+    font-size: 1em;
+    font-weight: bold; }
+  @media (min-width: 60em) {
+    .aviso {
+      padding: 1em 2em;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 50%;
+      height: 50%;
+      margin: auto;
+      -webkit-transition: 0.5s top, 0.5s 0.25s -webkit-box-shadow;
+      transition: 0.5s top, 0.5s 0.25s box-shadow;
+      border: 0.25em solid #d9d9d9;
+      border-top: none; }
+      .aviso span {
+        font-size: 12em; } }
 
 .info {
   min-width: 300px;

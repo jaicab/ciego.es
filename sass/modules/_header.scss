@@ -1,12 +1,11 @@
 header{
-	height:10%;
 
 	.logo{
 		text-align: center;
 	}
 	img{
 		margin:0;
-		padding:1em;
+		padding:1em .5em;
 	}
 
 	@include bp(desktop-small) {
