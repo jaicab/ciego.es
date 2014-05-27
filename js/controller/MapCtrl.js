@@ -8,7 +8,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	$scope.aqui = Data.aqui;
 	$scope.actual = Data.actual;
 	$scope.marker = Data.marker;
-	$scope.focus = Data.focus;
+	$scope.nuevo = Data.nuevo;
 
 	$scope.tipo_svg = new Array(4);
 	$scope.tipo_svg[0] = '<svg class="beer" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="-1 -30 70 1" enable-background="new 0 0 512 512" xml:space="preserve"><g><path d="M23.04 -32.183v-13.824h-9.216v9.216q0 1.908 1.35 3.258t3.258 1.35h4.608zm36.864 16.128v6.912h-41.472v-6.912l4.608 -6.912h-4.608q-5.724 0 -9.774 -4.05t-4.05 -9.774v-11.52l-2.304 -2.304 1.152 -4.608h17.28l1.152 -4.608h34.56l1.152 6.912 -2.304 1.152v28.8z"></path></g></svg>';
@@ -17,7 +17,10 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	$scope.tipo_svg[3] = '<svg class="cider" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><g><path d="M298.725,211.268c-8.027-21.325-15.75-95.299-15.75-102.258c0-18.627,14.174-8.474,0.867-51.545 c-3.072-9.951-52.611-9.954-55.684,0c-12.963,41.985,0.867,33.957,0.867,51.545c0,6.958-7.723,80.933-15.75,102.258 c-8.031,21.326-32.373,25.192-32.373,65.77c0,24.227,0,137.757,0,160.628c0,22.872,17.35,24.335,75.098,24.335 s75.098-1.463,75.098-24.335c0-22.871,0-136.401,0-160.628C331.098,236.46,306.756,232.594,298.725,211.268z M241.055,291.778 v137.75c-7.625,1.125-22.875,0.5-26-5v-135c0-47.376,16.418-32.407,33.5-90C244.289,229.599,241.055,245.028,241.055,291.778z"></path></g></svg>';
 
 
-	// Check if in marker list
+	/** 
+	* Check if in marker list
+	* @param garito The marker we're checking
+	*/
 	$scope.inMarker = function(garito){
 		for(i=0; i<$scope.marker.length; i++){
 			if($scope.marker[i].id==garito.id) return true;
@@ -25,7 +28,10 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		return false;
 	}
 
-	// Clears all the markers
+	/** 
+	* Clears all marker list
+	* @param todo Set to true just to be sure you're clearing everything
+	*/	
 	$scope.clearMarkers = function(todo) {	
 
 		tam = $scope.marker.length;
@@ -43,21 +49,28 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		
 	}
 
-	// Clears all the info windows
+	/** 
+	* Clears all the info windows
+	*/	
 	$scope.clearInfowindows = function() {
 		for (var i = 0; i < $scope.infowindow.length; i++ ) {
 			$scope.infowindow[i].close();
 		}
 	}
 
-	// Focus on one single window
+	/** 
+	* Focus on one single window, close the others
+	*/	
 	$scope.info = function(count){
 		$scope.clearInfowindows();
 		//ventanita.setContent('<div class="info">Pene pene pene'+marcador.id+'</div>');
 		$scope.marker[count].infowindow.open($scope.map,$scope.marker[count]);
 	}
 
-	// Center the map in place
+	/**
+	* Center the map in place
+	* @param donde A google.maps.LatLng() object to center the map into
+	*/
 	$scope.estoy_aqui = function(donde){
 		$scope.aqui = donde;
 		$scope.actual.setPosition($scope.aqui);
@@ -65,23 +78,40 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		$scope.map.setZoom(15);
 	}
 
-
+	/**
+	* Opens up the new Garito form
+	*/
 	$scope.newGarito = function(){
-		$scope.focus = true;
-		alert("hola");
+		$scope.nuevo = {};
+    	$scope.clearMarkers(true);
+	}
 
+	/**
+	* Publishes the Garito if all the data is correct
+	*/
+	$scope.publicarGarito = function(){
+		console.log($scope.nuevo);
+	}
+
+	/**
+	* Cancels the new Garito and goes back to search mode
+	*/
+	$scope.cancelarGarito = function(){
+		$scope.nuevo = false;
 	}
 
 
-	/*FUNCIONES DEL MAPA*/
-	//'bounds': google.maps.LatLngBounds(google.maps.LatLng(35.17300000000001, -12.524000000000001),google.maps.LatLng(45.244, 5.097999999999956))
+	/** 
+	* Sets the viewport on the place's or centers the map in that location
+	* @param direccion A string address to be looked up by Google Maps API
+	*/
 	$scope.codeAddress = function(direccion){
-		geocoder.geocode( { 'address': direccion, 'region':'es'}, function(results, status) {
+		$scope.geocoder.geocode( { 'address': direccion, 'region':'es'}, function(results, status) {
 			if(status == google.maps.GeocoderStatus.OK) {
 
 				if (results[0].geometry.viewport) {
 	    			$scope.aqui = results[0].geometry.location;
-					$scope.actual.setPosition(aqui);
+					$scope.actual.setPosition($scope.aqui);
 	      			$scope.map.fitBounds(results[0].geometry.viewport);
 		    	} else {  		
 			    	$scope.estoy_aqui(results[0].geometry.location);
@@ -93,6 +123,9 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		});
 	}
 
+	/** 
+	* Geolocation via HTML5
+	*/
 	$scope.localizar = function() {
 
 		//GEOLOCALIZACIÓN
@@ -101,10 +134,10 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 			if(navigator.geolocation) {
 			    browserSupportFlag = true;
 			    navigator.geolocation.getCurrentPosition(function(position) {
-			    	//conseguido
+			    	// Gotcha
 			    	$scope.estoy_aqui(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
 			    }, function() {
-			    	//no conseguido
+			    	// Oops!
 			    	if (errorFlag == true) {
 				      alert("La geolocalización ha fallado.");
 				    } else {
@@ -115,6 +148,9 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		}
 	}
 
+	/** 
+	* Updates the marker list depending on the viewport
+	*/
 	$scope.refocus = function() {
 
 	    // Close Street View
@@ -182,6 +218,9 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 
 	}
 
+	/** 
+	* Load up the map's basic settings
+	*/
 	$scope.initialize = function(){
 		var panoramaOptions = {
 	        addressControlOptions : { position : google.maps.ControlPosition.BOTTOM_CENTER },
@@ -221,6 +260,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 			}
 			]
 		};
+		$scope.geocoder = new google.maps.Geocoder();
 
 		// Instantiate the map
 		$scope.map = new google.maps.Map(document.getElementById('mapa'),mapOptions);
@@ -255,7 +295,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	    	// If the place has a geometry, then present it on a map.
 	    	if (place.geometry.viewport) {
 	    		$scope.aqui = place.geometry.location;
-				$scope.actual.setPosition(aqui);
+				$scope.actual.setPosition($scope.aqui);
 	      		$scope.map.fitBounds(place.geometry.viewport);
 	    	} else {  		
 		    	$scope.estoy_aqui(place.geometry.location);
@@ -265,8 +305,12 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 
 	  	// At zoom change
 		google.maps.event.addListener($scope.map, 'idle', function(){
-		    if(!$scope.focus) $scope.refocus();
+
+			// If we're not setting a new Garito, focus on the viewport
+		    if(!$scope.nuevo) $scope.refocus();
+		    // Else, focus on the new Garito
 		    else $scope.codeAddress($scope.focus);
+		    
 		});
 	};
 

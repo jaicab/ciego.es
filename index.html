@@ -25,9 +25,30 @@
 					<img src="img/logo.svg" alt="Ciego.es - Beber barato es posible">
 				</div>
 
-				<a ng-click="newGarito()" class="btn" ng-hide="focus">Nuevo garito</a>
+				<a ng-click="newGarito()" class="but" ng-hide="nuevo">Nuevo garito</a>
+				<div class="nuevo" ng-show="nuevo">
+						<h2>Nuevo garito</h2>
+					<form ng-submit="publicarGarito()">
+						<input type="text" ng-model="nuevo.nombre" placeholder="Nombre" required>
+						<input type="text" ng-model="nuevo.ciudad" placeholder="Ciudad" required>
+						<input type="text" ng-model="nuevo.provincia" placeholder="Provincia" required>
+						<input type="text" ng-model="nuevo.direccion" placeholder="Dirección" ng-blur="codeAddress(''+nuevo.direccion+' '+nuevo.direccion+' '+nuevo.provincia)" required>
+						<select ng-model="nuevo.tipo" required>
+							<option value="">Selecciona...</option>
+							<option value="0">Cervezas</option>
+							<option value="1">Vinos</option>
+							<option value="2">Copas</option>
+							<option value="3">Sidras</option>
+						</select>
+						<input type="number" ng-model="nuevo.precio" placeholder="Precio">
+						<textarea ng-model="nuevo.descripcion" placeholder="Descripción"></textarea>
 
-				<div class="desktop" id="resultados">
+						<input type="submit" value="Publicar">
+						<input type="reset" value="Cancelar" ng-click="cancelarGarito()">
+					</form>
+				</div>
+
+				<div class="desktop" id="resultados" ng-hide="nuevo">
 					<div class="garito" ng-repeat="garito in marker | orderBy:'id':true | limitTo: 100">
 						<div class="icon" ng-bind-html="tipo_svg[{{garito.tipo_id}}] | unsafe"></div>
 						<h3 class="nombre" data-id="{{garito.id}}">{{garito.nombre}}</h3>
