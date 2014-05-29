@@ -1,4 +1,12 @@
+// @codekit-prepend 'partial/webfont.js'
 // @codekit-prepend 'partial/modernizr.js'
+
+// Angular libraries
+// @codekit-prepend 'angular/angular.min.js'
+// @codekit-prepend 'angular/angular-route.min.js'
+// @codekit-prepend 'angular/angular-sanitize.min.js'
+// @codekit-prepend 'angular/angular-animate.min.js'
+
 
 
 /*
@@ -15,6 +23,4 @@
 
 // @codekit-prepend 'factory/Data.js'
 
-
-// @codekit-prepend 'controller/ContentCtrl.js'
 // @codekit-prepend 'controller/MapCtrl.js'

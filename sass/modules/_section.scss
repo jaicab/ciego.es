@@ -4,7 +4,7 @@ section{
 	height:100%;
 
 	@include bp(desktop-small) {
-		@extend .tope_alto;
+		height: 100%;
 		width:75%;
 		position:absolute;
 		top:0;
