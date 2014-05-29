@@ -14,7 +14,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	
 	$scope.avisoinfo = { 
 		tipo: 'info', 
-		msg: '<div class="left"><p>Ciego es un buscador abierto de ofertas de bebidas alcohólicas baratas llamadas "garitos". Es abierto porque cualquiera puede publicar nuevos garitos. Ordenadas la más barata primero, solo se permite una oferta por local y un precio unitario.</p><p>Esto es un experimento de <i>AngularJS</i> desarrollado por <a href="http://jaicab.com" target="_blank">Jaime Caballero</a> y se encuentra en fase <b>beta</b>.</p><ul>' +
+		msg: '<div class="left"><p>Ciego es un buscador abierto de ofertas de bebidas alcohólicas baratas llamadas "garitos". Es abierto porque cualquiera puede publicar nuevos garitos. Ordenadas la más barata primero, solo se permite una oferta por local y un precio unitario.</p><p>Esto es un experimento de <i>AngularJS</i> y la <i>Google Maps API</i> desarrollado por <a href="http://jaicab.com" target="_blank">Jaime Caballero</a> y se encuentra en fase <b>beta</b>.</p><ul>' +
 		'<li><span class="typcn typcn-social-github-circular"></span> <a target="_blank" href="http://github.com/jaicab">@jaicab</a></li>' + 
 		'<li><span class="typcn typcn-social-twitter-circular"></span> <a target="_blank" href="http://twitter.com/jaicab_">@jaicab_</a></li>' + 
 		'<li><span class="typcn typcn-social-at-circular"></span> <a href="mailto:contact@jaicab.com">contact@jaicab.com</a></li>' + 
