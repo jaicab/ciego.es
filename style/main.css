@@ -1577,6 +1577,8 @@ footer {
   -webkit-transition: 0.5s;
   transition: 0.5s;
   max-height: 25em; }
+  .nuevo a {
+    color: #a92929; }
   .nuevo.ng-hide-add, .nuevo.ng-hide-remove {
     display: block !important; }
   .nuevo.ng-hide-remove, .nuevo.ng-hide-add.ng-hide-add-active {

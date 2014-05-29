@@ -330,7 +330,11 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	* Publishes the Garito if all the data is correct
 	*/
 	$scope.publicarGarito = function(){
-		console.log($scope.nuevo);
+		
+		$scope.aviso = {
+			tipo: 'upload',
+			msg: '<p>Un segundo, estamos publicando el garito <i>' + $scope.nuevo.nombre + '</i>...</p>'
+		}
 
 		$http({
 		    url: "http://www.corsproxy.com/api.ciego.es/nuevo.php?nombre=" + $scope.nuevo.nombre + 
@@ -344,6 +348,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 				"&lng=" + $scope.aqui.lng(),
 		    method: "GET"
 		}).success(function(data, status, headers, config) {
+			$scope.aviso = false;
 			if(data=="null"){
 
 				console.log("Error: Aquí pasa algo raro.");
