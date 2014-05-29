@@ -1,0 +1,46 @@
+/*
+CSS for Ciego.es
+================
+Author: Jaime Caballero
+Copyright - ciego.es
+*/
+
+// SASS
+@import "default";
+@import "mixins";
+
+// ELEMENTOS BASE
+@import "base/normalize";
+@import "base/typicons";
+@import "base/tags";
+@import "base/forms";
+@import "base/classes";
+
+html{
+	background: #312b1e;
+	padding:0 2em;
+}
+
+body{
+	max-width: 60em;
+	padding: 2em;
+	background: #000;
+	border-left: 1em dashed #312b1e;
+	border-right: 1em dashed #312b1e;
+	margin: auto;
+	text-align: center;
+	border-radius: 5px;
+}
+
+header{
+	text-align: center;
+	padding: 1em;
+
+	img{
+		width: 70%;
+	}
+}
+
+p{
+	font-size: 1.8em;
+}
