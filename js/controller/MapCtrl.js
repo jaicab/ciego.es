@@ -1,5 +1,4 @@
 
-
 ciego.controller('MapCtrl', function($scope, $http, Data){
 
 	$scope.data = {buscar:""};
@@ -33,7 +32,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 
 	$scope.mobile = function(){
 		if(window.innerWidth < 960){
-			document.getElementById("section").style.height = (window.innerHeight - document.getElementById("header").offsetHeight - document.getElementById("formBuscar").offsetHeight) + "px";
+			document.getElementById("section").style.height = (window.innerHeight - document.getElementById("header").offsetHeight - document.getElementById("formBuscar").offsetHeight) - 10 + "px";
 		}else{
 			document.getElementById("section").style.height = "auto";
 		}
@@ -85,6 +84,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	* Focus on one single window, close the others
 	*/	
 	$scope.info = function(count){
+		console.log(count);
 		$scope.clearInfowindows();
 		$scope.marker[count].infowindow.open($scope.map,$scope.marker[count]);
 	}
@@ -313,11 +313,11 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 					  	}));
 
 					  	// Bind onclick event
-					  	google.maps.event.addListener($scope.marker[cont],'click', (function(cont){ 
+					  	google.maps.event.addListener($scope.marker[cont],'click', (function(marker){ 
 						    return function() {
-						    	$scope.info(cont);
+						    	$scope.info($scope.marker.indexOf(marker));
 						    };
-						})(cont));  
+						})($scope.marker[cont]));  
 					}
 				}
 
