@@ -1316,18 +1316,6 @@ hr {
   border-top: none;
   border-bottom: 1px dashed #a92929; }
 
-nav ul {
-  list-style: none;
-  padding: 0 0 0.5em 0;
-  margin: 0; }
-  nav ul li {
-    display: inline-block;
-    width: 50%; }
-  nav ul li:first-child {
-    padding-right: 0.25em; }
-  nav ul li:last-child {
-    padding-left: 0.25em; }
-
 #mapa img {
   max-width: none; }
 
@@ -1451,11 +1439,41 @@ input[type="checkbox"] {
   .resultados {
     padding-bottom: 3em; } }
 
+nav ul {
+  list-style: none;
+  padding: 0.5em 0 0 0.5em;
+  margin: 0; }
+  nav ul li {
+    padding-bottom: 0.5em; }
+  @media (min-width: 40em) {
+    nav ul {
+      padding: 0; }
+      nav ul li {
+        display: inline-block;
+        width: 50%; }
+      nav ul li:first-child {
+        padding-right: 0.25em; }
+      nav ul li:last-child {
+        padding-left: 0.25em; } }
+
 header .logo {
-  text-align: center; }
-header img {
-  margin: 0;
-  padding: 1em 0.5em; }
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  width: 60%; }
+  header .logo img {
+    margin: 0;
+    padding: 1.5em 0.5em; }
+header nav {
+  display: inline-block;
+  vertical-align: top;
+  width: 40%; }
+@media (min-width: 40em) {
+  header .logo, header nav {
+    display: block;
+    width: auto; }
+  header .logo img {
+    padding: 1em 0.5em; } }
 @media (min-width: 60em) {
   header {
     height: 100%;

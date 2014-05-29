@@ -1,0 +1,24 @@
+nav ul{
+	list-style: none;
+	padding: .5em 0 0 .5em;
+	margin: 0;
+
+	li{
+		padding-bottom: 0.5em;
+	}
+
+
+	@include bp(tablet-small) {
+		padding: 0;
+		li{
+			display: inline-block;
+			width: 50%;
+		}
+		li:first-child{
+			padding-right: 0.25em;
+		}
+		li:last-child{
+			padding-left: 0.25em;
+		}
+	}
+}

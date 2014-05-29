@@ -2,13 +2,36 @@ header{
 
 	.logo{
 		text-align: center;
-	}
-	img{
-		margin:0;
-		padding:1em .5em;
+		display: inline-block;
+		vertical-align: top;
+		width:60%;
+	
+		img{
+			margin:0;
+			padding: 1.5em .5em;
+		}
 	}
 
+	nav{
+		display: inline-block;
+		vertical-align: top;
+		width: 40%;
+	}
+
+	@include bp(tablet-small) {
+		.logo,
+		nav{
+			display: block;
+			width: auto;
+		}
+		.logo{
+			img{
+				padding: 1em .5em;
+			}
+		}
+	}
 	@include bp(desktop-small) {
+
 		height: 100%;
 		position:fixed;
 		top:0;
