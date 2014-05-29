@@ -228,7 +228,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 
 				$scope.aviso = { 
 					tipo: 'info', 
-					msg: '<p>Si nos da permiso, Ciego.es utilizará su ubicación para mejorar su experiencia en el sitio. No almacenaremos su ubicación en ningún momento.</p>'
+					msg: '<p>Si nos dejas, Ciego.es utilizará tu ubicación para mejorar la experiencia en el sitio. No almacenaremos la ubicación en ningún momento.</p>'
 				}
 
 			    browserSupportFlag = true;
