@@ -8,7 +8,7 @@ It's hosted on GitHub Pages and uses a simple API hosted in my server to manage 
 
 
 ##Contributing
-If you feel like adding a new feature or you've found a bug, please [open an issue](https://github.com/jaicab/Ciego.es/issues/new) so we can talk about it.
+If you feel like adding a new feature or you've found a bug, please [open an issue](https://github.com/jaicab/Ciego.es/issues/new) or tweet me at [@jaicab_](http://jaicab.com) so we can talk about it.
 
 
 ##License
