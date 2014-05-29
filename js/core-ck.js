@@ -333,7 +333,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		console.log($scope.nuevo);
 
 		$http({
-		    url: "/lib/ajax/nuevo.php?nombre=" + $scope.nuevo.nombre + 
+		    url: "http://www.corsproxy.com/api.ciego.es/nuevo.php?nombre=" + $scope.nuevo.nombre + 
 		    	"&ciudad=" + $scope.nuevo.ciudad +
 		    	"&provincia=" + $scope.nuevo.provincia +
 		    	"&direccion=" + $scope.nuevo.direccion +
@@ -463,7 +463,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	    // AJAX, boy
 
 		$http({
-		    url: "/lib/ajax/viewport.php?swLat="+sw.lat()+"&swLng="+sw.lng()+"&neLat="+ne.lat()+"&neLng="+ne.lng(),
+		    url: "http://www.corsproxy.com/api.ciego.es/viewport.php?swLat="+sw.lat()+"&swLng="+sw.lng()+"&neLat="+ne.lat()+"&neLng="+ne.lng(),
 		    method: "GET"
 		}).success(function(data, status, headers, config) {
 
