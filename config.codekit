@@ -153,7 +153,7 @@
 		"outputAbbreviatedPath": "\/css\/404.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
+		"outputStyle": 3,
 		"shouldRunAutoprefixer": 0,
 		"shouldRunBless": 0,
 		"useLibsass": 0
@@ -272,7 +272,7 @@
 		},
 	"\/sass\/main.scss": {
 		"createSourceMap": 1,
-		"debugStyle": 2,
+		"debugStyle": 0,
 		"decimalPrecision": 5,
 		"fileType": 4,
 		"ignore": 0,
@@ -281,7 +281,7 @@
 		"outputAbbreviatedPath": "\/style\/main.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 1,
-		"outputStyle": 1,
+		"outputStyle": 3,
 		"shouldRunAutoprefixer": 1,
 		"shouldRunBless": 1,
 		"useLibsass": 1
