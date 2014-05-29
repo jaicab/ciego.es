@@ -217,11 +217,11 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 	
 	$scope.avisoinfo = { 
 		tipo: 'info', 
-		msg: '<div class="left"><p>Ciego.es es un experimento de <i>AngularJS</i> desarrollado por <a href="http://jaicab.com" target="_blank">Jaime Caballero</a> y se encuentra en fase <b>beta</b>. Si algo falla, no dudes en contactar conmigo:</p><ul>' +
+		msg: '<div class="left"><p>Ciego es un buscador abierto de ofertas de bebidas alcohólicas baratas llamadas "garitos". Es abierto porque cualquiera puede publicar nuevos garitos. Ordenadas la más barata primero, solo se permite una oferta por local y un precio unitario.</p><p>Esto es un experimento de <i>AngularJS</i> desarrollado por <a href="http://jaicab.com" target="_blank">Jaime Caballero</a> y se encuentra en fase <b>beta</b>.</p><ul>' +
 		'<li><span class="typcn typcn-social-github-circular"></span> <a target="_blank" href="http://github.com/jaicab">@jaicab</a></li>' + 
 		'<li><span class="typcn typcn-social-twitter-circular"></span> <a target="_blank" href="http://twitter.com/jaicab_">@jaicab_</a></li>' + 
 		'<li><span class="typcn typcn-social-at-circular"></span> <a href="mailto:contact@jaicab.com">contact@jaicab.com</a></li>' + 
-		'</ul><p>AVISO: Ciego.es recomienda un consumo responsable. No nos hacemos responsables de un mal uso de este producto o derivados.</p></div>'
+		'</ul><p>AVISO: Ciego.es recomienda un consumo responsable. No nos hacemos responsables de un mal uso de este producto.</p></div>'
 	}
 
 	$scope.tipo_bebida = ["Cervezas", "Vinos", "Copas", "Sidras"];
