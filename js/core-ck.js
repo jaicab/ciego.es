@@ -333,7 +333,7 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 		
 		$scope.aviso = {
 			tipo: 'upload',
-			msg: '<p>Un segundo, estamos publicando el garito <i>' + $scope.nuevo.nombre + '</i>...</p>'
+			msg: '<p>Estamos publicando el garito <i>' + $scope.nuevo.nombre + '</i>.</p><p>Por favor, espere un segundo...</p>'
 		}
 
 		$http({
@@ -348,7 +348,6 @@ ciego.controller('MapCtrl', function($scope, $http, Data){
 				"&lng=" + $scope.aqui.lng(),
 		    method: "GET"
 		}).success(function(data, status, headers, config) {
-			$scope.aviso = false;
 			if(data=="null"){
 
 				console.log("Error: Aquí pasa algo raro.");
