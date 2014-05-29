@@ -33,9 +33,9 @@
 				</div><nav>
 					<ul>
 						<li>
-							<a href="#" ng-click="aviso = avisoinfo" class="button block"><span class="typcn typcn-info-large"></span> Info</a>
-						</li><li>
 							<a ng-click="toggleGarito()" ng-class="{open: nuevo}" class="button block"><span class="typcn typcn-plus"></span> Nuevo</a>
+						</li><li>
+							<a href="#" ng-click="aviso = avisoinfo" class="button block"><span class="typcn typcn-info-large"></span> Info</a>
 						</li>
 					</ul>
 				</nav>
@@ -44,7 +44,7 @@
 					<form ng-submit="publicarGarito()">
 						<div class="field">
 
-							<input type="text" ng-model="nuevo.nombre" placeholder="Nombre" required>
+							<input type="text" ng-model="nuevo.nombre" placeholder="Nombre" required autofocus>
 						
 						</div><div class="field half">
 						
@@ -73,13 +73,17 @@
 						
 						</div><div class="field half">
 						
-							<input type="number" min="0.01" max="9.99" ng-model="nuevo.precio" placeholder="Precio (€)">
+							<input type="number" min="0" max="9.99" ng-model="nuevo.precio" placeholder="Precio (€)">
 						
 						</div><div class="field">
 						
-							<textarea ng-model="nuevo.descripcion" placeholder="Descripción"></textarea>
+							<textarea ng-model="nuevo.descripcion" placeholder="Descripción (opcional)"></textarea>
 						
-						</div><div class="field half">
+						</div><label class="field">
+
+							<input type="checkbox" required> Acepto las <a href="#" ng-click="aviso = {tipo:'warning', msg:'<p>Esta información pasará a formar parte de un fichero en ciego.es que se usará como contenido en la web. No se comerciará con esta información de ningún modo.</p>'}">condiciones de uso</a>.
+
+						</label><div class="field half">
 						
 							<input type="submit" value="Publicar">
 						
@@ -97,7 +101,7 @@
 						<span ng-show="marker.length == 1">{{marker.length}} garito</span>
 						<span ng-show="marker.length > 1">{{marker.length}} garitos</span>
 						<span ng-show="lugar"> en {{lugar}}</span>.</h2>
-					<div class="garito" ng-repeat="garito in marker | orderBy:'id':true | limitTo: 100">
+					<div class="garito" ng-repeat="garito in marker | orderBy:'precio':false | limitTo: 100">
 						<div class="precio">{{garito.precio}}</div>
 						<div class="icon" ng-click="info($index)" ng-bind-html="tipo_svg[{{garito.tipo_id}}] | unsafe"></div>
 						<h3 class="nombre" ng-click="info($index)" data-id="{{garito.id}}"><a href="#">{{garito.nombre}}</a></h3>

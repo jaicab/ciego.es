@@ -6,6 +6,10 @@
 	transition: .5s;
 	max-height: 25em;
 
+	a{
+		color: $color_logo;
+	}
+
 	&.ng-hide-add, 
 	&.ng-hide-remove
 	{
