@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 
 *.scssc
 
+=======
+*.scssc
+*.map
+*.php
+>>>>>>> master
 *.map
