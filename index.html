@@ -101,7 +101,7 @@
 						<span ng-show="marker.length == 1">{{marker.length}} garito</span>
 						<span ng-show="marker.length > 1">{{marker.length}} garitos</span>
 						<span ng-show="lugar"> en {{lugar}}</span>.</h2>
-					<div class="garito" ng-repeat="garito in marker | orderBy:'precio':false | limitTo: 100">
+					<div class="garito" ng-repeat="garito in marker | limitTo: 100">
 						<div class="precio">{{garito.precio}}</div>
 						<div class="icon" ng-click="info($index)" ng-bind-html="tipo_svg[{{garito.tipo_id}}] | unsafe"></div>
 						<h3 class="nombre" ng-click="info($index)" data-id="{{garito.id}}"><a href="#">{{garito.nombre}}</a></h3>
