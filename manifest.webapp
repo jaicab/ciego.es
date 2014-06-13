@@ -1,0 +1,22 @@
+{
+    "version": "1.0",
+    "name": "Ciego",
+    "description": "Pagar poco y beber mucho",
+    "launch_path": "/index.html",
+    "icons": {
+        "16": "/img/icons/logo-16.png",
+        "48": "/img/icons/logo-48.png",
+        "128": "/img/icons/logo-128.png"
+    },
+    "developer": {
+        "name": "Jaime Caballero",
+        "url": "http://jaicab.com"
+    },
+    "installs_allowed_from": ["*"],
+    "locales": {
+    },
+    "default_locale": "es",
+    "permissions": {     
+    },
+    "fullscreen": "true"
+}
